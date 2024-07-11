@@ -8,8 +8,8 @@
 			<div class="row">
 				<div class="card col-md-12">
 					
-					<div class="card-body">
-						<table class="table table-striped table-bordered" id="schedule-field">
+					<div class="card-body" style="background-color: rgba(125, 149,161, 0.5);">
+						<table class="table table-striped table-bordered text-white" id="schedule-field">
 							<colgroup>
 								<col width="5%">
 								<col width="10%">
@@ -70,6 +70,7 @@
                 },
                 success: function(resp) {
                     if (resp && typeof resp !== 'undefined') {
+                        console.log(resp);
                         if (Object.keys(resp).length > 0) {
                             $('#schedule-field tbody').html('');
                             var i = 1;
@@ -82,8 +83,7 @@
                                 tr.append('<td>' + resp[k].time + '</td>');
                                 tr.append('<td>' + resp[k].availability + '</td>');
                                 tr.append('<td>' + resp[k].price + '</td>');
-                                // tr.append('<td><button class="btn btn-danger book_now"  data-id="'+resp[k].id+'">Select</button></td>');
-                                tr.append('<td><center><button class="btn btn-sm btn-primary mr-2 text-white" id="book_now" data-id="'+resp[k].id+'"><strong>Book Now</strong></button></center></td>')
+                                tr.append('<td><center><button class="btn btn-sm btn-primary mr-2 text-white"  id="book_now" data-id="' + resp[k].scheduled_trips_id + '"><strong>Book Now</strong></button></center></td>');
                                 $('#schedule-field tbody').append(tr);
                             });
                         } else {
@@ -96,14 +96,18 @@
                         // DataTables configuration options
                     });
 
-                    $('#book_now').click(function() {
-                        loadSchedule('Book Details', 'customer_book.php?id=' + $(this).attr('data-id'), 1);
+                    $(document).on('click', '#book_now', function() {
+                        var id = $(this).data('id');
+                        // window.location.href ='customer_book.php?id=' + id;
+                        window.location.href ='index.php?page=scheduled_list&id=&from_location=1&to_location=2&departure_time=&email=&booking-form=true&id=' + id;
                     });
-                }
+                }   
             });
         }
 
         // Initialize on document ready
         loadSchedule();
+
+        
     });
 </script>

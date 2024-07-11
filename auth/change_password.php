@@ -17,7 +17,7 @@ require_once("../storage/user_db.php");
       <!-- /side var -->
 <div class="layout-page">
    <!-- Layout Page -->
-<?php require_once("../layouts/navar.php")?>
+<?php require_once("../layouts/user_navar.php")?>
 
  
 <!-- car added -->

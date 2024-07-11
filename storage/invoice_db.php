@@ -1,6 +1,6 @@
 <?php
-function save_invoice($mysqli,$payment_method_id,$user_id,$status,$total_price){
-    $sql="INSERT INTO `invoice`(`payment_method_id`,`user_id`,`status`,`total_price`) VALUES('$payment_method_id','$user_id','$status','$total_price')";
+function save_invoice($mysqli,$payment_method_id,$scheduled_trips_id,$user_id,$qty,$status,$total_price){
+    $sql="INSERT INTO `invoice`(`payment_method_id`,`scheduled_trips_id`,`user_id`,`qty`,`status`,`total_price`) VALUES('$payment_method_id','$scheduled_trips_id','$user_id','$qty','$status','$total_price')";
     echo $sql;
 if($mysqli->query($sql)){
     return true;

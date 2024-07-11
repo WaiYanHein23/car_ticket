@@ -19,7 +19,7 @@ $user_image=$user['image'];
       
      <!-- Navbar -->
           <nav
-            class="layout-navbar  navbar  navbar-detached align-items-center bg-dark"
+            class=" align-items-center bg-dark"
             id="layout-navbar"
           >
            
@@ -29,17 +29,17 @@ $user_image=$user['image'];
                 <!-- Place this tag where you want the button to render. -->
                 <li class="nav-item lh-1 me-5">
                   
-                    <a class="text-white fs-5" href="../user/index.php">Home</a>
+                    <a class="text-white fs-5 text-decoration-none" href="../user/index.php">Home</a>
                    
                 </li>
 
                 <li class="nav-item lh-1 me-5">
                   
-                    <a class="text-white fs-5" href="../user/index.php">Schedule</a>
+                    <a class="text-white fs-5 text-decoration-none" href="../user/index.php">Schedule</a>
                    
                 </li>
 
-                <li class="nav-item lh-1 me-3">
+                <li class="nav-item lh-1 me-3 text-white">
                   
                     <?php echo $user_name;?>
                    
@@ -48,7 +48,7 @@ $user_image=$user['image'];
                 <!-- User -->
                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
                   <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-                    <div class="avatar avatar-online">
+                    <div class="avatar avatar-online me-4 mb-2">
                     <img style="width: 50px;height: 50px;" class="rounded" src="data:image/png/jpg;base64,<?php echo $user_image ?>" alt="">
                     </div>
                   </a>

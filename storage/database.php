@@ -78,20 +78,7 @@ function create_tables($mysqli) {
         return false;
     }
 
-    $sql = "CREATE TABLE IF NOT EXISTS `invoice`(
-        `invoice_id` INT AUTO_INCREMENT,
-        `payment_method_id` INT NOT NULL,
-        `user_id` INT NOT NULL,
-        `status` VARCHAR(50) NOT NULL,
-        `total_price` DECIMAL(10,2) NOT NULL,
-        PRIMARY KEY(`invoice_id`),
-        FOREIGN KEY (`payment_method_id`) REFERENCES `payment_method`(`payment_method_id`),
-        FOREIGN KEY (`user_id`) REFERENCES `user`(`user_id`)
-    )";
-    if ($mysqli->query($sql) === false) {
-        echo "Error creating `invoice` table: " . $mysqli->error;
-        return false;
-    }
+  
 
     $sql = "CREATE TABLE IF NOT EXISTS `trip_location`(
         `trip_location_id` INT AUTO_INCREMENT,
@@ -121,6 +108,24 @@ function create_tables($mysqli) {
 
     if ($mysqli->query($sql) === false) {
         echo "Error creating `schedule` table: " . $mysqli->error;
+        return false;
+    }
+
+    $sql = "CREATE TABLE IF NOT EXISTS `invoice`(
+        `invoice_id` INT AUTO_INCREMENT,
+        `payment_method_id` INT NOT NULL,
+        `scheduled_trips_id` INT NOT NULL,
+        `user_id` INT NOT NULL,
+        `qty` INT NOT NULL,
+        `status` VARCHAR(50) NOT NULL,
+        `total_price` DECIMAL(10,2) NOT NULL,
+        PRIMARY KEY(`invoice_id`),
+        FOREIGN KEY (`payment_method_id`) REFERENCES `payment_method`(`payment_method_id`),
+        FOREIGN KEY (`scheduled_trips_id`) REFERENCES `scheduled_trips`(`scheduled_trips_id`),
+        FOREIGN KEY (`user_id`) REFERENCES `user`(`user_id`)
+    )";
+    if ($mysqli->query($sql) === false) {
+        echo "Error creating `invoice` table: " . $mysqli->error;
         return false;
     }
 
