@@ -8,7 +8,7 @@
 			<div class="row">
 				<div class="card col-md-12">
 					
-					<div class="card-body" style="background-color: rgba(125, 149,161, 0.5);">
+					<div class="card-body mx-auto rounded" style="background-color: rgb(95, 97,230,0.5);">
 						<table class="table table-striped table-bordered text-white" id="schedule-field">
 							<colgroup>
 								<col width="5%">
@@ -21,14 +21,14 @@
 							</colgroup>
 							<thead>
 								<tr>
-									<th class="text-center">#</th>
-									<th class="text-center">Date</th>
-									<th class="text-center">Bus</th>
-									<th class="text-center">Location</th>
-									<th class="text-center">Departure</th>
-									<th class="text-center">Availability</th>
-									<th class="text-center">Price</th>
-                                    <th class="text-center">Action</th>
+									<th class="text-center text-white">#</th>
+									<th class="text-center text-white">Date</th>
+									<th class="text-center text-white">Bus</th>
+									<th class="text-center text-white">Location</th>
+									<th class="text-center text-white">Departure</th>
+									<th class="text-center text-white">Availability</th>
+									<th class="text-center text-white">Price</th>
+                                    <th class="text-center text-white">Action</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -45,6 +45,7 @@
 </section>
 
 <script>
+    var scheduled_trips = [];
     $(document).ready(function() {
         function loadSchedule() {
             // Destroy existing DataTables instance if it exists
@@ -71,6 +72,7 @@
                 success: function(resp) {
                     if (resp && typeof resp !== 'undefined') {
                         console.log(resp);
+                        scheduled_trips = resp;
                         if (Object.keys(resp).length > 0) {
                             $('#schedule-field tbody').html('');
                             var i = 1;
@@ -98,8 +100,13 @@
 
                     $(document).on('click', '#book_now', function() {
                         var id = $(this).data('id');
+                        const sid = parseInt(id, 10);
+
+                        //Generate the scheduled trip price
+                        var selected_trip = scheduled_trips.find(trip => trip['scheduled_trips_id']);
+                        const ticket_price = selected_trip['price'];
                         // window.location.href ='customer_book.php?id=' + id;
-                        window.location.href ='index.php?page=scheduled_list&id=&from_location=1&to_location=2&departure_time=&email=&booking-form=true&id=' + id;
+                        window.location.href =`index.php?page=scheduled_list&id=&price=${ticket_price}&from_location=<?= isset($_GET['from_location']) ? $_GET['from_location'] : '' ?>&to_location=<?= isset($_GET['to_location']) ? $_GET['to_location'] : '' ?>&departure_time=&email=&booking-form=true&id=` + id;
                     });
                 }   
             });

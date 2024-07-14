@@ -1,54 +1,67 @@
 <?php
-function save_schedule($mysqli,$car_id,$from_location,$to_location,$departure_time,$status,$availability,$price){
-    $sql="INSERT INTO `scheduled_trips`(`car_id`,`from_location`,`to_location`,`departure_time`,`status`,`availability`,`price`) VALUES('$car_id','$from_location','$to_location','$departure_time','$status','$availability','$price')";
-if($mysqli->query($sql)){
-    return true;
-}else{
-    return false;
+function save_schedule($mysqli, $car_id, $from_location, $to_location, $departure_time, $availability, $price)
+{
+    $sql = "INSERT INTO `scheduled_trips`(`car_id`,`from_location`,`to_location`,`departure_time`,`availability`,`price`) VALUES('$car_id','$from_location','$to_location','$departure_time','$availability','$price')";
+    if ($mysqli->query($sql)) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
-}
-
-function get_all_schedule($mysqli){
-    $sql="SELECT * FROM `scheduled_trips`";
-    $result=$mysqli->query($sql);
+function get_all_schedule($mysqli)
+{
+    $sql = "SELECT * FROM `scheduled_trips`";
+    $result = $mysqli->query($sql);
     return $result;
 }
 
-function get_schedule_by_id($mysqli,$id){
-    $sql="SELECT * FROM `scheduled_trips` WHERE `scheduled_trips_id`='$id'";
-    $result=$mysqli->query($sql);
+function get_schedule_by_id($mysqli, $id)
+{
+    $sql = "SELECT * FROM `scheduled_trips` WHERE `scheduled_trips_id`='$id'";
+    $result = $mysqli->query($sql);
     return $result->fetch_assoc();
 }
 
+// function get_total_current_qty($mysqli, $id)
+// {
+//     $sql = "SELECT SUM(`invoice`.`qty`) AS `total_qty`
+//     FROM `scheduled_trips`
+//     LEFT JOIN `invoice` ON `invoice`.`scheduled_trips_id` = `scheduled_trips`.`scheduled_trips_id`
+//     WHERE `scheduled_trips`.`scheduled_trips_id` = 1";
 
+//     $result = $mysqli->query($sql);
+//     return $result->fetch_assoc();
+// }
 
-function update_schedule($mysqli,$schedule_id,$car_id,$from_location,$to_location,$departure_time,$status,$availability,$price){
+function update_schedule($mysqli, $schedule_id, $car_id, $from_location, $to_location, $departure_time, $availability, $price)
+{
 
-    $sql="UPDATE  `scheduled_trips` SET `car_id`=$car_id,`from_location`='$from_location',`to_location`='$to_location',`departure_time`='$departure_time',`status`='$status',`availability`='$availability',`price`='$price' WHERE `scheduled_trips_id`=$schedule_id";
-    if($mysqli->query($sql)){
+    $sql = "UPDATE  `scheduled_trips` SET `car_id`=$car_id,`from_location`='$from_location',`to_location`='$to_location',`departure_time`='$departure_time',`availability`='$availability',`price`='$price' WHERE `scheduled_trips_id`=$schedule_id";
+    if ($mysqli->query($sql)) {
         return true;
-    }else{
+    } else {
         return false;
     }
 }
 
-function delete_schedule_by_location_id($mysqli,$id){
-    $sql="DELETE  FROM `scheduled_trips` WHERE `from_location` or `to_location`='$id'";
-    if($mysqli->query($sql)){
+function delete_schedule_by_location_id($mysqli, $id)
+{
+    $sql = "DELETE  FROM `scheduled_trips` WHERE `from_location` or `to_location`='$id'";
+    if ($mysqli->query($sql)) {
         return true;
-    }else{
+    } else {
         return false;
     }
 }
 
 
-function delete_schedule($mysqli,$schedule_id){
-    $sql="DELETE FROM  `scheduled_trips` WHERE `scheduled_trips_id`='$schedule_id'";
-    if($mysqli->query($sql)){
+function delete_schedule($mysqli, $schedule_id)
+{
+    $sql = "DELETE FROM  `scheduled_trips` WHERE `scheduled_trips_id`='$schedule_id'";
+    if ($mysqli->query($sql)) {
         return true;
-    }else{
+    } else {
         return false;
     }
 }
-?>

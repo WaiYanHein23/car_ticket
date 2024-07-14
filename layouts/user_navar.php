@@ -71,14 +71,14 @@ $user_image=$user['image'];
                       <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="../auth/profile.php">
+                      <a class="dropdown-item" href="../auth/user_profile.php">
                         <i class="bx bx-user me-2"></i>
                         <span class="align-middle">My Profile</span>
                       </a>
                     </li>
                     
                     <li>
-                      <a class="dropdown-item" href="../auth/change_password.php">
+                      <a class="dropdown-item" href="../auth/user_change_password.php">
                       <i class="fa-solid fa-key me-2"></i>
                         <span class="align-middle">Change Password</span>
                       </a>

@@ -20,8 +20,8 @@ require_once("../layouts/sidebar.php");
 
             <?php
 
-            $car_id=$from_location=$to_location=$departure_time=$status=$availability=$price="";
-            $car_id_err=$from_location_err=$to_location_err=$departure_time_err=$status_err=$availability_err=$price_err="";
+            $car_id=$from_location=$to_location=$departure_time=$availability=$price="";
+            $car_id_err=$from_location_err=$to_location_err=$departure_time_err=$availability_err=$price_err="";
            
             $invalid = "";
             $success = '';
@@ -32,7 +32,6 @@ require_once("../layouts/sidebar.php");
                $from_location=$_POST['from_location'];
                $to_location=$_POST['to_location'];
                $departure_time=$_POST['departure_time'];
-               $status=$_POST['status'];
                 $availability=$_POST['availability'];
                 $price = $_POST['price'];
                 if ($car_id === "00") {
@@ -57,10 +56,7 @@ require_once("../layouts/sidebar.php");
                     $departure_time_err = "Departure Time can't blank";
                 }
 
-                if ($status === '') {
-                    $validate = false;
-                    $status_err = "Status can't blank";
-                }
+               
 
                 if ($availability === '') {
                     $validate = false;
@@ -74,7 +70,7 @@ require_once("../layouts/sidebar.php");
                 }
 
                 if ($validate) {
-                    $status = save_schedule($mysqli,$car_id,$from_location,$to_location,$departure_time,$status,$availability,$price);
+                    $status = save_schedule($mysqli,$car_id,$from_location,$to_location,$departure_time,$availability,$price);
                     if ($status) {
                         $success = "Success";
                       
@@ -91,7 +87,6 @@ require_once("../layouts/sidebar.php");
                 $from_location=$schedule['from_location'];
                 $to_location=$schedule['to_location'];
                 $departure_time=$schedule['departure_time'];
-                $status = $schedule['status'];
                 $availability=$schedule['availability'];
                 $price = $schedule['price'];
                 if (isset($_POST["update"])) {
@@ -99,11 +94,10 @@ require_once("../layouts/sidebar.php");
                    $from_location=$_POST['from_location'];
                    $to_location=$_POST['to_location'];
                    $departure_time=$_POST['departure_time'];
-                    $status = $_POST['status'];
                     $availability=$_POST['availability'];
                     $price = $_POST['price'];
                    
-                        $status = update_schedule($mysqli,$schedule_id,$car_id,$from_location,$to_location,$departure_time,$status,$availability,$price);
+                        $status = update_schedule($mysqli,$schedule_id,$car_id,$from_location,$to_location,$departure_time,$availability,$price);
                         if ($status) {
                             $success = "Schedule Updated Success!";
                         } else {
@@ -176,12 +170,6 @@ require_once("../layouts/sidebar.php");
                                                 <input type="datetime-local" class="form-control" id="floatingInput" placeholder="Departure Time" name="departure_time" value="<?php echo $departure_time ?>" />
                                                 <label for="floatingInput">Departure Time</label>
                                                 <small class="text-danger"><?php echo $departure_time_err ?></small>
-                                            </div>
-
-                                            <div class="form-floating form-floating-custom mb-3">
-                                                <input type="number" class="form-control" id="floatingInput" placeholder="Status" name="status" value="<?php echo $status ?>" />
-                                                <label for="floatingInput">Status</label>
-                                                <small class="text-danger"><?php echo $status_err ?></small>
                                             </div>
                                             
                                             

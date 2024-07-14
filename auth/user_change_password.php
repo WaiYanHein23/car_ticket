@@ -3,23 +3,16 @@ require_once("../layouts/header.php");
 require_once("../storage/database.php");
 require_once("../storage/auth_user.php");
 require_once("../storage/user_db.php");
+require_once("../layouts/user_navar.php");
+
+ 
 ?>
 
 
  <!-- Layout wrapper -->
  <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
-      <!-- side var -->
-      <?php
-
-      require_once("../layouts/sidebar.php");
-?>
-      <!-- /side var -->
 <div class="layout-page">
-   <!-- Layout Page -->
-<?php require_once("../layouts/user_navar.php")?>
-
- 
 <!-- car added -->
 
 <?php

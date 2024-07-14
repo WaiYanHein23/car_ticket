@@ -119,15 +119,26 @@ if(isset($_POST['submit'])){
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../assets/js/config.js"></script>
   </head>
+  <style>
+     #loginPage {
 
-  <body class="bg-dark">
+              background-image: url("../assets/img/backgrounds/loginPage.jpg");
+              background-size: cover;
+              background-position: center;
+              height: 500px;
+              width: 1000px;
+              background-repeat: no-repeat;
+}
+  </style>
+
+  <body class="" id="loginPage" >
     <!-- Content -->
 
     <div class="container-xxl">
       <div class="authentication-wrapper authentication-basic container-p-y">
         <div class="authentication-inner">
           <!-- Register -->
-          <div class="card">
+          <div class="card" style="background-color: rgb(86, 35, 35,0.6)">
             <div class="card-body">
               <!-- Logo -->
               <div class="app-brand justify-content-center">
@@ -187,18 +198,18 @@ if(isset($_POST['submit'])){
                       </g>
                     </svg>
                   </span>
-                  <span class="app-brand-text demo text-body fw-bolder">Online Bus Ticket</span>
+                  <span class="app-brand-text demo fw-bolder">Online Bus Ticket</span>
                 </a>
               </div>
               <!-- /Logo -->
-              <h4 class="mb-4">Please sign-in to your account 👋</h4>
+              <h4 class="mb-4 text-white">Please sign-in to your account 👋</h4>
 
-              <form id="formAuthentication" class="mb-3" action="" method="POST">
+              <form id="formAuthentication"  class="mb-3" action="" method="POST">
                 <span class="text-danger"><?php echo $user_err ?></span>
                 <span class="text-danger"><?php echo $password_err_mess ?></span>
                 <div class="mb-3">
 
-                  <label for="email" class="form-label">Email </label>
+                  <label for="email" class="form-label text-white">Email </label>
                   <input
                     type="text"
                     class="form-control"
@@ -211,10 +222,10 @@ if(isset($_POST['submit'])){
                 </div>
                 <div class="mb-3 form-password-toggle">
                   <div class="d-flex justify-content-between">
-                    <label class="form-label" for="password">Password</label>
-                    <a href="./auth/forgot_pass.php">
+                    <label class="form-label text-white" for="password">Password</label>
+                    <!-- <a href="./auth/forgot_pass.php">
                       <small>Forgot Password?</small>
-                    </a>
+                    </a> -->
                   </div>
                   <div class="input-group input-group-merge">
                     <input
@@ -232,7 +243,7 @@ if(isset($_POST['submit'])){
                 <div class="mb-3">
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" id="remember-me" />
-                    <label class="form-check-label" for="remember-me"> Remember Me </label>
+                    <label class="form-check-label text-white" for="remember-me"> Remember Me </label>
                   </div>
                 </div>
                 <div class="mb-3">
@@ -241,7 +252,7 @@ if(isset($_POST['submit'])){
               </form>
 
               <p class="text-center">
-                <span>New on our platform?</span>
+                <span class="text-white">New on our platform?</span>
                 <a href="register.php">
                   <span>Create an account</span>
                 </a>

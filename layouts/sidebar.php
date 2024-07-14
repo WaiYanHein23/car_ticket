@@ -111,7 +111,7 @@ if (isset($_POST['logout'])) {
     <!-- Location-->
 
     <!-- Seat -->
-    <li class="menu-item active">
+    <!-- <li class="menu-item active">
       <a href="javascript:void(0);" class="menu-link menu-toggle">
         <i class="fa-solid fa-chair me-2"></i>
         <div data-i18n="Layouts">Seat</div>
@@ -129,11 +129,11 @@ if (isset($_POST['logout'])) {
         </li>
 
       </ul>
-    </li>
+    </li> -->
     <!-- Seat -->
 
     <!-- Payment Method -->
-    <li class="menu-item active">
+    <!-- <li class="menu-item active">
       <a href="javascript:void(0);" class="menu-link menu-toggle">
         <i class="fa-solid fa-cart-shopping me-2"></i>
         <div data-i18n="Layouts">Payment</div>
@@ -151,7 +151,7 @@ if (isset($_POST['logout'])) {
         </li>
 
       </ul>
-    </li>
+    </li> -->
     <!-- Payment Method -->
 
     <!-- Schedule-->

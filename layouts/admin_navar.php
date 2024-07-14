@@ -19,7 +19,7 @@ $user_image=$user['image'];
       
      <!-- Navbar -->
           <nav
-            class="layout-navbar  navbar  navbar-detached align-items-center bg-dark"
+            class=" align-items-center bg-dark"
             id="layout-navbar"
           >
             <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
@@ -31,7 +31,7 @@ $user_image=$user['image'];
             <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
 
               <!-- Search -->
-              <div class="navbar-nav align-items-center ms-5">
+              <!-- <div class="navbar-nav align-items-center ms-5">
                 <div class="nav-item d-flex align-items-center">
                   <i class="bx bx-search fs-4 lh-0"></i>
                   <input
@@ -41,13 +41,13 @@ $user_image=$user['image'];
                     aria-label="Search..."
                   />
                 </div>
-              </div>
+              </div> -->
               <!-- /Search -->
 
               
               <ul class="navbar-nav flex-row align-items-center ms-auto">
                 <!-- Place this tag where you want the button to render. -->
-                <li class="nav-item lh-1 me-3">
+                <li class="nav-item lh-1 me-3 text-white">
                   
                     <?php echo $user_name;?>
                    
@@ -56,7 +56,7 @@ $user_image=$user['image'];
                 <!-- User -->
                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
                   <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-                    <div class="avatar avatar-online">
+                    <div class="avatar avatar-online me-4 mb-2">
                     <img style="width: 50px;height: 50px;" class="rounded" src="data:image/png/jpg;base64,<?php echo $user_image ?>" alt="">
                     </div>
                   </a>
@@ -79,14 +79,14 @@ $user_image=$user['image'];
                       <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="../auth/profile.php">
+                      <a class="dropdown-item" href="../auth/admin_change_password.php">
                         <i class="bx bx-user me-2"></i>
                         <span class="align-middle">My Profile</span>
                       </a>
                     </li>
                     
                     <li>
-                      <a class="dropdown-item" href="../auth/change_password.php">
+                      <a class="dropdown-item" href="../auth/admin_change_password.php">
                       <i class="fa-solid fa-key me-2"></i>
                         <span class="align-middle">Change Password</span>
                       </a>

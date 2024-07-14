@@ -58,25 +58,25 @@ function create_tables($mysqli) {
         return false;
     }
 
-    $sql = "CREATE TABLE IF NOT EXISTS `seat`(
-        `seat_id` INT AUTO_INCREMENT,
-        `seat_name` VARCHAR(20) NOT NULL,
-        PRIMARY KEY (`seat_id`)
-    )";
-    if ($mysqli->query($sql) === false) {
-        echo "Error creating `seat` table: " . $mysqli->error;
-        return false;
-    }
+    // $sql = "CREATE TABLE IF NOT EXISTS `seat`(
+    //     `seat_id` INT AUTO_INCREMENT,
+    //     `seat_name` VARCHAR(20) NOT NULL,
+    //     PRIMARY KEY (`seat_id`)
+    // )";
+    // if ($mysqli->query($sql) === false) {
+    //     echo "Error creating `seat` table: " . $mysqli->error;
+    //     return false;
+    // }
 
-    $sql = "CREATE TABLE IF NOT EXISTS `payment_method`(
-        `payment_method_id` INT AUTO_INCREMENT,
-        `payment_method_name` VARCHAR(50) NOT NULL,
-        PRIMARY KEY(`payment_method_id`)
-    )";
-    if ($mysqli->query($sql) === false) {
-        echo "Error creating `payment_method` table: " . $mysqli->error;
-        return false;
-    }
+    // $sql = "CREATE TABLE IF NOT EXISTS `payment_method`(
+    //     `payment_method_id` INT AUTO_INCREMENT,
+    //     `payment_method_name` VARCHAR(50) NOT NULL,
+    //     PRIMARY KEY(`payment_method_id`)
+    // )";
+    // if ($mysqli->query($sql) === false) {
+    //     echo "Error creating `payment_method` table: " . $mysqli->error;
+    //     return false;
+    // }
 
   
 
@@ -111,58 +111,56 @@ function create_tables($mysqli) {
         return false;
     }
 
-    $sql = "CREATE TABLE IF NOT EXISTS `invoice`(
+    $sql = "CREATE TABLE IF NOT EXISTS `ticket_invoice`(
         `invoice_id` INT AUTO_INCREMENT,
-        `payment_method_id` INT NOT NULL,
         `scheduled_trips_id` INT NOT NULL,
-        `user_id` INT NOT NULL,
+        `username` VARCHAR(100) NOT NULL,
         `qty` INT NOT NULL,
-        `status` VARCHAR(50) NOT NULL,
+        `status` tinyint(1) NOT NULL DEFAULT 0 COMMENT '0= unpaid , 1= paid',
+        `paymentRef` TEXT NOT NULL,
         `total_price` DECIMAL(10,2) NOT NULL,
         PRIMARY KEY(`invoice_id`),
-        FOREIGN KEY (`payment_method_id`) REFERENCES `payment_method`(`payment_method_id`),
-        FOREIGN KEY (`scheduled_trips_id`) REFERENCES `scheduled_trips`(`scheduled_trips_id`),
-        FOREIGN KEY (`user_id`) REFERENCES `user`(`user_id`)
+        FOREIGN KEY (`scheduled_trips_id`) REFERENCES `scheduled_trips`(`scheduled_trips_id`)
     )";
     if ($mysqli->query($sql) === false) {
-        echo "Error creating `invoice` table: " . $mysqli->error;
+        echo "Error creating `ticket_invoice` table: " . $mysqli->error;
         return false;
     }
 
 
-    $sql = "CREATE TABLE IF NOT EXISTS `car_seat` (
-        `car_seat_id` INT AUTO_INCREMENT,
-        `scheduled_trips_id` INT NOT NULL,
-        `seat_id` INT NOT NULL,
-        `invoice_id` INT,
-        `booking_date` DATE,
-        PRIMARY KEY (`car_seat_id`),
-        FOREIGN KEY (`scheduled_trips_id`) REFERENCES `scheduled_trips`(`scheduled_trips_id`),
-        FOREIGN KEY (`seat_id`) REFERENCES `seat`(`seat_id`),
-        FOREIGN KEY (`invoice_id`) REFERENCES `invoice`(`invoice_id`)
-    )";
+    // $sql = "CREATE TABLE IF NOT EXISTS `car_seat` (
+    //     `car_seat_id` INT AUTO_INCREMENT,
+    //     `scheduled_trips_id` INT NOT NULL,
+    //     `seat_id` INT NOT NULL,
+    //     `invoice_id` INT,
+    //     `booking_date` DATE,
+    //     PRIMARY KEY (`car_seat_id`),
+    //     FOREIGN KEY (`scheduled_trips_id`) REFERENCES `scheduled_trips`(`scheduled_trips_id`),
+    //     FOREIGN KEY (`seat_id`) REFERENCES `seat`(`seat_id`),
+    //     FOREIGN KEY (`invoice_id`) REFERENCES `invoice`(`invoice_id`)
+    // )";
     
-    if ($mysqli->query($sql) === false) {
-        echo "Error creating `car_seat` table: " . $mysqli->error;
-        return false;
-    }
+    // if ($mysqli->query($sql) === false) {
+    //     echo "Error creating `car_seat` table: " . $mysqli->error;
+    //     return false;
+    // }
 
-    return true;
+    // return true;
 }
 
-if (create_db($mysqli)) {
-    if (select_db($mysqli)) {
-        if (create_tables($mysqli)) {
+// if (create_db($mysqli)) {
+//     if (select_db($mysqli)) {
+//         if (create_tables($mysqli)) {
             
-        } else {
-            echo "Error creating tables.";
-        }
-    } else {
-        echo "Error selecting database.";
-    }
-} else {
-    echo "Error creating database.";
-}
+//         } else {
+//             echo "Error creating tables.";
+//         }
+//     } else {
+//         echo "Error selecting database.";
+//     }
+// } else {
+//     echo "Error creating database.";
+// }
 
 
 create_db($mysqli);

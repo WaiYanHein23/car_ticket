@@ -119,14 +119,26 @@ if($validate){
     <script src="../assets/js/config.js"></script>
   </head>
 
-  <body class="bg-dark">
+  <style>
+     #registerPage {
+
+              background-image: url("../assets/img/backgrounds/loginPage.jpg");
+              background-size: cover;
+              background-position: center;
+              height: 500px;
+              width: 1000px;
+              background-repeat: no-repeat;
+}
+  </style>
+
+  <body id="registerPage">
     <!-- Content -->
 
-    <div class="container-xxl">
+    <div class="container">
       <div class="authentication-wrapper authentication-basic container-p-y">
         <div class="authentication-inner">
           <!-- Register Card -->
-          <div class="card">
+          <div class="card text-white" style="background-color: rgb(86, 35, 35,0.6)" >
             <div class="card-body">
               <!-- Logo -->
               <div class="app-brand justify-content-center">
@@ -186,7 +198,7 @@ if($validate){
                       </g>
                     </svg>
                   </span>
-                  <span class="app-brand-text demo text-body fw-bolder">Online Bus Ticket</span>
+                  <span class="app-brand-text demo  fw-bolder">Online Bus Ticket</span>
                 </a>
               </div>
               <?php
@@ -197,7 +209,7 @@ if($validate){
 
               <form id="formAuthentication" class="mb-3" action="" method="POST">
                 <div class="mb-3">
-                  <label for="username" class="form-label">Username</label>
+                  <label for="username" class="form-label text-white">Username</label>
                   <input
                     type="text"
                     class="form-control"
@@ -209,12 +221,12 @@ if($validate){
                   <small class="text-danger"><?php echo $username_err  ?></small>
                 </div>
                 <div class="mb-3">
-                  <label for="email" class="form-label">Email</label>
+                  <label for="email" class="form-label text-white">Email</label>
                   <input type="text" class="form-control" id="email" name="email" placeholder="Enter your email" />
                   <small class="text-danger"><?php echo $email_err  ?></small>
                 </div>
                 <div class="mb-3 form-password-toggle">
-                  <label class="form-label" for="password">Password</label>
+                  <label class="form-label text-white" for="password">Password</label>
                   <div class="input-group input-group-merge">
                     <input
                       type="password"
@@ -230,13 +242,13 @@ if($validate){
                 </div>
 
                 <div class="mb-3">
-                  <label for="ph_no" class="form-label">Phone Number</label>
+                  <label for="ph_no" class="form-label text-white">Phone Number</label>
                   <input type="text" class="form-control" id="ph_no" name="ph_no" placeholder="Enter your Number" />
                   <small class="text-danger"><?php echo $ph_no_err   ?></small>
                 </div>
 
                 <div class="mb-3">
-                  <label for="address" class="form-label">Address</label>
+                  <label for="address" class="form-label text-white">Address</label>
                   <input type="text" class="form-control" id="address" name="address" placeholder="Enter your address" />
                   <small class="text-danger"><?php echo $address_err   ?></small>
                 </div>
