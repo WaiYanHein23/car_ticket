@@ -1,21 +1,31 @@
 <?php
-require_once("../layouts/header.php");
+require_once("../storage/auth_user.php");
 require_once("../storage/database.php");
 require_once('../storage/car_db.php');
-require_once("../layouts/admin_navar.php");
+
+
+if (!$user) {
+    header("Location:../auth/login.php");
+  } else {
+    if (!$user['is_admin']) {
+      header("Location: ../layouts/err.php");
+    }
+ }
+
+require_once("../layouts/header.php");
 require_once("../layouts/sidebar.php");
+require_once("../layouts/admin_navar.php");
+
+
+
+
 ?>
 
-
  <!-- Layout wrapper -->
- <div class="layout-wrapper layout-content-navbar">
-      <div class="layout-container">
-      <!-- side var -->
-      
-      <!-- /side var -->
+<div class="layout-wrapper layout-content-navbar">
+<div class="layout-container">
 <div class="layout-page">
-   <!-- Layout Page -->
-
+<!-- Layout Page -->
  
 <!-- car added -->
 

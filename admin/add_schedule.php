@@ -1,10 +1,23 @@
 <?php
-require_once("../layouts/header.php");
+require_once("../storage/auth_user.php");
 require_once("../storage/database.php");
 require_once("../storage/schedule_db.php");
 require_once("../storage/car_db.php");
-require_once("../layouts/admin_navar.php");
+
+
+if (!$user) {
+    header("Location:../auth/login.php");
+  } else {
+    if (!$user['is_admin']) {
+      header("Location: ../layouts/err.php");
+    }
+  }
+
+
+require_once("../layouts/header.php");
 require_once("../layouts/sidebar.php");
+require_once("../layouts/admin_navar.php");
+
 ?>
 
 <!-- Layout wrapper -->

@@ -1,7 +1,20 @@
 <?php
-require_once("../layouts/header.php");
+require_once("../storage/auth_user.php");
 require_once("../storage/database.php");
 require_once("../storage/schedule_db.php");
+
+
+if (!$user) {
+    header("Location:../auth/login.php");
+  } else {
+    if (!$user['is_admin']) {
+      header("Location: ../layouts/err.php");
+    }
+  }
+
+require_once("../layouts/header.php");
+require_once("../layouts/sidebar.php");
+require_once("../layouts/admin_navar.php");
 
 $success='';
 $invalid='';
@@ -30,20 +43,11 @@ if(isset($_GET['delete_id'])){
 <!-- Layout wrapper -->
 <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
-      <!-- side var -->
-      <?php
-
-      require_once("../layouts/sidebar.php");
-?>
-      <!-- /side var -->
+     
 <div class="layout-page">
    <!-- Layout Page -->
-<?php require_once("../layouts/admin_navar.php")?>
 
  
-
-
-
 <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4">
     <div>
         <h6 class="op-7 mb-2 ms-2">Manage Schedule </h6>

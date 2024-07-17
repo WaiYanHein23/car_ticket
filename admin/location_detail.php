@@ -1,21 +1,25 @@
 <?php
-require_once("../layouts/header.php"); 
 require_once("../storage/database.php");
-require_once("../storage/location_db.php");
+require_once("../storage/trip_location_db.php");
 
+if (!$user) {
+    header("Location:../auth/login.php");
+  } else {
+     if (!$user['is_admin']) {
+         header("Location:../layouts/err.php");
+     }
+  }
+
+require_once("../layouts/header.php"); 
+require_once("../layouts/sidebar.php");
+require_once("../layouts/admin_navar.php")
 ?>
 <!-- Layout wrapper -->
  <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
-      <!-- side var -->
-      <?php
-
-      require_once("../layouts/sidebar.php");
-?>
-      <!-- /side var -->
 <div class="layout-page">
    <!-- Layout Page -->
-<?php require_once("../layouts/admin_navar.php")?>
+<?php ?>
 
 <div class="ms-md-auto py-2 py-md-0 mt-2">
         <!-- <a href="../#" class="btn btn-label-info btn-round me-2">Manage</a> -->

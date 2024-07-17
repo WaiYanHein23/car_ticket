@@ -1,7 +1,21 @@
 <?php
-require_once("../layouts/header.php");
+require_once("../storage/auth_user.php");
 require_once("../storage/database.php");
 require_once("../storage/trip_location_db.php");
+
+if (!$user) {
+    header("Location:../auth/login.php");
+  } else {
+    if (!$user['is_admin']) {
+      header("Location: ../layouts/err.php");
+    }
+  }
+
+
+require_once("../layouts/header.php");
+require_once("../layouts/sidebar.php");
+require_once("../layouts/admin_navar.php");
+
 ?>
 
 
@@ -9,14 +23,10 @@ require_once("../storage/trip_location_db.php");
  <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
       <!-- side var -->
-      <?php
-
-      require_once("../layouts/sidebar.php");
-?>
+     
       <!-- /side var -->
 <div class="layout-page">
    <!-- Layout Page -->
-<?php require_once("../layouts/admin_navar.php")?>
 
  
 <!-- car added -->
@@ -55,16 +65,11 @@ $success="Success";
 if (isset($_GET["update_id"])) {
     $location_id = $_GET["update_id"];
     $location= get_location_by_id($mysqli, $location_id);
-    $departure_location= $location['departure_location'];
-    $destination=$location['destination'];
-    $price=$location['price'];
+    $city_name= $location['city_name'];
     if (isset($_POST["update"])) {
-        $departure_location=$_POST['departure_location'];
-       $destination=$_POST['destination'];
-        $price=$_POST['price'];
-         if ($departure_location === '') $departure_location_err = "Departure Location can not be blank!";
-        if ($departure_location_err === '' ) {
-           $status =update_location($mysqli,$location_id,$departure_location,$destination,$price);
+        $city_name=$_POST['city_name'];
+        
+           $status =update_location($mysqli,$location_id,$city_name);
             if ($status) {
                 $success = "Location Updated Success!";
             } else {
@@ -72,7 +77,7 @@ if (isset($_GET["update_id"])) {
             }
          }
     }
-}
+
 
 
 

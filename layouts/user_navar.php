@@ -19,7 +19,7 @@ $user_image=$user['image'];
       
      <!-- Navbar -->
           <nav
-            class=" align-items-center bg-dark"
+            class="row align-items-center bg-dark"
             id="layout-navbar"
           >
            
@@ -33,9 +33,10 @@ $user_image=$user['image'];
                    
                 </li>
 
+
                 <li class="nav-item lh-1 me-5">
                   
-                    <a class="text-white fs-5 text-decoration-none" href="../user/index.php">Schedule</a>
+                    <a class="text-white fs-5 text-decoration-none" href="#footer">Contact</a>
                    
                 </li>
 

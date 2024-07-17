@@ -176,6 +176,28 @@ if (isset($_POST['logout'])) {
     </li>
     <!-- Schedule-->
 
+    <!-- Invoice-->
+    <li class="menu-item active">
+      <a href="javascript:void(0);" class="menu-link menu-toggle">
+      <i class="fa-solid fa-book me-2"></i>
+        <div data-i18n="Layouts">Invoice List</div>
+      </a>
+      <ul class="menu-sub">
+        <li class="menu-item">
+          <a href="../admin/update_invoice.php" class="menu-link">
+            <div data-i18n="Without menu">Update Invoice</div>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="../admin/invoice.php" class="menu-link">
+            <div data-i18n="Without navbar">Invoice List</div>
+          </a>
+        </li>
+
+      </ul>
+    </li>
+    <!-- Invoice-->
+
   </ul>
   </ul>
 

@@ -118,7 +118,8 @@ function create_tables($mysqli) {
         `qty` INT NOT NULL,
         `status` tinyint(1) NOT NULL DEFAULT 0 COMMENT '0= unpaid , 1= paid',
         `paymentRef` TEXT NOT NULL,
-        `total_price` DECIMAL(10,2) NOT NULL,
+        `total_price` TEXT NOT NULL,
+        `transition_no` DECIMAL(10,2) NOT NULL,
         PRIMARY KEY(`invoice_id`),
         FOREIGN KEY (`scheduled_trips_id`) REFERENCES `scheduled_trips`(`scheduled_trips_id`)
     )";

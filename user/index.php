@@ -1,12 +1,7 @@
 <?php
 session_start();
 require_once("../storage/db_connect.php");
-require_once("../layouts/header.php");
 require_once("../storage/auth_user.php");
-require_once("../storage/car_db.php");
-require_once("../storage/trip_location_db.php");
-require_once("../layouts/user_navar.php");
-
 
 if (!$user) {
   header("Location:../auth/login.php");
@@ -15,6 +10,14 @@ if (!$user) {
     header("Location:../layouts/err.php");
   }
 }
+
+require_once("../layouts/header.php");
+require_once("../storage/car_db.php");
+require_once("../storage/trip_location_db.php");
+require_once("../layouts/user_navar.php");
+
+
+
 
 $name = $qty = $status = '';
 $validate = true;
@@ -68,30 +71,39 @@ $invalid = false;
     background-size: cover;
     background-position: center;
     height: 500px;
-    width: 1000px;
+    width:px;
     background-repeat: no-repeat;
   }
+
+ 
 </style>
 
 
-<div class="row">
-  <div class="col-8 ms-3" id="first">
+<div class="row  bg-gray">
+  <div class="col-8 " id="first">
     <h3 class="text-white text-center mt-3 align-items-center">အဝေးပြေး ကားလက်မှတ်အား မြန်ဆန်လွယ်ကူ ဝယ်ယူပါ။</h3>
-    <div class="" >
-      
- <!-- booking_Return   -->
+
+     <!-- booking_Return   -->
+   <div class="row">
    <?php
 if (isset($_GET['booking_return'])) {
   $ref = isset($_GET['ref']) ? $_GET['ref'] : '';
-  $total_booked_price = isset($_GET['total_price']) ? $_GET['total_price'] : '';?>
- <div class="card w-50 ms-5 p-3" style="background-color: rgba(0, 0, 0, 0.4);" >
- <h5 class="text-white">Reference Number: <?php echo $ref ?></h5>
- <p class="text-white">Copy or Capture your Reference number</p>
-  <h5 class="text-white">Total Price: <?php echo $total_booked_price  ?> ks</h5>
+  $total_booked_price = isset($_GET['total_price']) ? $_GET['total_price'] : '';
+  $total_qty=isset($_GET['qty'])?$_GET['qty']:'';?>
+ <div class="card w-50 ms-5 mt-5 p-2" style="background-color: rgb(71, 170, 44,0.5)" >
+ <div class="card p-0">
+ <h3 class="text-center bg-warning">Invoice </h3>
  </div>
+ <h5 class="text-primary text-center mt-3">Reference Number:  <small class="text-white ms-3"><?php echo $ref ?></small></h5>
+ <h5 class="text-primary text-center">Number of Seat :<small class="text-white ms-3"><?php echo $total_qty  ?> seat</small></h5>
+  <h5 class="text-primary text-center">Total Price: <small class="text-white ms-3"><?php echo $total_booked_price  ?> ks</small></h5>
+  <h4 class="text-danger text-center">Copy or Capture your Reference number</h4>
+</div>
 <?php } ?>
+   </div>
 <!-- /booking_Return -->
 
+    <div class="" >
 
       <?php
       if (!isset($_GET['booking-form'])) {
@@ -103,7 +115,8 @@ if (isset($_GET['booking_return'])) {
 
         <div class="container text-white">
           <form id="manage_book"  method="POST">
-            <div class="w-75 p-3 mx-auto rounded" style="background-color: rgba(0, 0, 0, 0.4);">
+            <div class="row d-flex w-75 p-4 mx-auto rounded" style="background-color: rgba(0, 0, 0, 0.4);">
+             <div class="col-6"> 
               <p><b>Bus:</b> <?php echo $car['brand'] . ' | ' . $car['plate_number'] ?></p>
               <p><b>From:</b> <?php echo $from_location['location'] ?></p>
               <p><b>To:</b> <?php echo $to_location['location'] ?></p>
@@ -118,19 +131,17 @@ if (isset($_GET['booking_return'])) {
                   <label for="name" class="control-label">Name</label>
                   <input type="text" class="form-control p-1" id="name" name="name" value="<?php echo isset($bmeta['name']) ? $bmeta['name'] : '' ?>">
                 </div>
+
                 <div class="form-group mb-2 w-50">
                   <label for="qty" class="control-label">Quantity</label>
                   <input type="number" maxlength="4" class="form-control p-1 text-right" id="qty" name="qty" value="<?php echo isset($bmeta['qty']) ? $bmeta['qty'] : '' ?>">
                 </div>
 
+                <div class="form-group mb-2 w-50">
+                  <label for="transition_no" class="control-label">Transition Number</label>
+                  <input type="number" maxlength="4" class="form-control p-1 text-right" id="transition_no" name="transition_no" value="<?php echo isset($bmeta['transition_no']) ? $bmeta['transition_no'] : '' ?>">
+                </div>
 
-                <!-- <div class="form-group mb-2 w-50">
-                  <label for="qty" class="control-label">Status</label>
-                  <select class="form-control p-1" id="status" name="status" value="<?php echo isset($bmeta['qty']) ? $bmeta['qty'] : '' ?>">
-                    <option value="1" <?php echo isset($bmeta['status']) && $bmeta['status'] == 1 ? "selected" : '' ?>>Paid</option>
-                    <option value="0" <?php echo isset($bmeta['status']) && $bmeta['status'] == 0 ? "selected" : '' ?>>Unpaid</option>
-                  </select>
-                </div> -->
 
                 <div class="d-flex">
                   <div>
@@ -146,6 +157,12 @@ if (isset($_GET['booking_return'])) {
 
               <?php endif; ?>
             </div>
+             <div class="card col-6 ms-5  w-25 h-25 mt-5  " style="background-color: rgba(0, 0, 0, 0.2);">
+              <p class="text-primary text-center mt-3">KBZPay</p>
+                <img src="../assets/img/backgrounds/payment_no.jpg" alt="" srcset="">
+                <p class="mt-2 text-center">Scan QR Code</p>
+             </div>
+            </div>
           </form>
         </div>
 
@@ -154,8 +171,8 @@ if (isset($_GET['booking_return'])) {
   </div>
 
 
-  <div class="col-4 text-white" style="background-color: rgba(125, 149,161, 0.7);">
-    <div class="card p-5 m-3" style="background-color: rgba(125, 149,161, 0.7);">
+  <div id="home" class="col-4  text-white" style="background-color: rgba(125, 149,161, 0.6);">
+    <div class="card p-5 m-4" style="background-color: rgba(125, 149,161, 0.7);">
       <h1 class="text-center text-white">Search Trip</h1>
       <!-- <form> -->
       <div class="col-md-12">
@@ -211,8 +228,9 @@ if (isset($_GET['booking_return'])) {
   </div>
 </div>
 </div>
-<div style="background-color: rgba(95,97,230,0.5);">
-  <h1 class="text-center text-white fst-italic">Operators</h1>
+
+<div class="row" style="background-color: rgb(142, 155, 170)">
+  <h1 class="text-center text-white fst-italic mt-4">Operators</h1>
   <div class="row" id="header">
     <?php
     $results = get_all_car($mysqli);
@@ -237,22 +255,59 @@ if (isset($_GET['booking_return'])) {
 
 </div>
 
-<!-- <div>
-  <div>A</div>
-  <div>B</div>
-</div> -->
 
-<footer class="footer-section bg-dark">
+  <div class="row " id="card" style="background-color: rgb(142, 155, 170)">
+    <div class="col-sm-4 ">
+      <div class="card w-50 ms-5 my-5 border border-warning">
+        <div class="card-body ">
+          <h3 class="text-center text-primary"><i class="fa-solid fa-bus"></i></h3>
+          <h5 class="card-title text-primary">
+          20+ Bus Operators
+         </h5>
+         <p class="card-text">Choose from 20+ major bus operators covering 100 destinations.</p>
+        
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+    <div class="card w-50 ms-5 my-5 border border-warning">
+        <div class="card-body">
+          <h3 class="text-center text-primary"><i class="fa-solid fa-clock"></i></h3>
+        <h5 class="card-title text-primary">
+        Instant Booking
+         </h5>
+         <p class="card-text">Book your trip in less than 5 min. Instant confirmation after payment.</p>
+        
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+    <div class="card w-50 ms-5 my-5 border border-warning">
+        <div class="card-body">
+          <h3 class="text-center text-primary"><i class="fa-solid fa-person-circle-question"></i></h3>
+        <h5 class="text-primary text-center card-title">
+        Help 24/7
+         </h5>
+         <p class="card-text">Our support center is available 24/7 for your questions and concerns.</p>
+        
+        </div>
+      </div>
+    </div>
+    
+  </div>
+
+
+<footer  id="footer" class=" row footer-section bg-dark">
 
   <div class="row">
 
     <div class="col-4 mt-2 footer-menu">
       <ul style="color: aliceblue;" class="m-2 ms-5">
-        <p class="mb-2 "><a href="#" class="text-decoration-none" style="color: white;">Home</a></p>
+        <p class="mb-2 "><a href="#home" class="text-decoration-none" style="color: white;">Home</a></p>
         <p class="mb-2 "><a href="#" class="text-decoration-none" style="color: white;">Terms</a></p>
         <p class="mb-2 "><a href="#" class="text-decoration-none" style="color: white;">Privacy</a></p>
         <p class="mb-2 "><a href="#" class="text-decoration-none" style="color: white;">Policy</a></p>
-        <p class="mb-2 "><a href="#" class="text-decoration-none" style="color: white;">Contact</a></p>
+        <p class="mb-2 "><a href="#footer" class="text-decoration-none" style="color: white;">Contact</a></p>
       </ul>
     </div>
 
@@ -319,15 +374,14 @@ if (isset($_GET['booking_return'])) {
     document.getElementById('book_btn').addEventListener('click', function(e) {
       e.preventDefault();
       var get = '';
-      
-      console.log("Book btn");
       var name = $('#name').val();
       var qty = $('#qty').val();
+      var transition_no= $('#transition_no').val();
       qty = parseInt(qty, 10);
       var price = <?php echo $price ?>;
       var total_price = qty * price;
 
-      window.location.href = `index.php?page=book_now&sid=<?php echo $_GET['id']; ?>&bid=<?= isset($_GET['bid']) ? $_GET['bid'] : '' ?>&name=${name}&qty=${qty}&total_price=${total_price}`;
+      window.location.href = `index.php?page=book_now&sid=<?php echo $_GET['id']; ?>&bid=<?= isset($_GET['bid']) ? $_GET['bid'] : '' ?>&name=${name}&qty=${qty}&transition_no=${transition_no}&total_price=${total_price}`;
     });
 
   </script>

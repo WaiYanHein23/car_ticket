@@ -16,6 +16,13 @@ function get_all_location($mysqli){
     return $result;
 }
 
+function get_location_by_id($mysqli, $id)
+{
+    $sql = "SELECT * FROM `trip_location` WHERE `trip_location_id`='$id'";
+    $result = $mysqli->query($sql);
+    return $result->fetch_assoc();
+}
+
 function update_location($mysqli,$trip_location_id,$city_name){
 
     $sql="UPDATE `trip_location` SET `trip_location_id`='$trip_location_id', `city_name`='$city_name' WHERE `trip_location_id`=$trip_location_id";
