@@ -43,13 +43,20 @@ function update_invoice($mysqli, $invoice_id, $scheduled_trips_id, $username, $q
         return false;
     }
 
-    function delete_invoice($mysqli, $invoice_id)
-    {
-        $sql = "DELETE FROM  `invoice` WHERE `invoice_id`='$invoice_id'";
-        if ($mysqli->query($sql)) {
-            return true;
-        } else {
-            return false;
-        }
+}
+
+
+function delete_invoice($mysqli, $invoice_id)
+{
+    $sql = "DELETE FROM  `invoice` WHERE `invoice_id`='$invoice_id'";
+    if ($mysqli->query($sql)) {
+        return true;
+    } else {
+        return false;
     }
 }
+
+function get_invoice_using_ref($mysqli, $ref)
+{
+    $sql = "SELECT * FROM `ticket_invoice` WHERE `paymentRef`";
+} 
