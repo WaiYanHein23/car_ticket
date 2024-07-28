@@ -1,8 +1,10 @@
 <?php
+
 if (isset($_POST['logout'])) {
   setcookie("user", "", -1, "/");
   header("Location:../auth/login.php");
 }
+
 ?>
 
 

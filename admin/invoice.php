@@ -1,6 +1,8 @@
 <?php
 require_once("../storage/auth_user.php");
 require_once("../storage/database.php");
+require_once("../storage/invoice_db.php");
+
 
 if (!$user) {
     header("Location:../auth/login.php");
@@ -9,9 +11,24 @@ if (!$user) {
          header("Location:../layouts/err.php");
      }
   }
+
+
+if(isset($_GET['delete_id'])){
+    $invoice_id=$_GET['delete_id'];
+    $status=delete_invoice($mysqli,$invoice_id);
+    if($status){
+        $success="Delete Success";
+        header("Location:../admin/invoice.php?success=$success");
+    }else{
+        $invalid="Delete Fail";
+        header("Location:../admin/invoice.php?invalid=$invalid");
+    }
+}
+
 require_once("../layouts/header.php");
 require_once("../layouts/admin_navar.php");
 require_once("../layouts/sidebar.php");
+
 
 ?>
 
@@ -39,7 +56,7 @@ require_once("../layouts/sidebar.php");
                     <thead>
                         <tr>
                             <th style="width: 15%">No</th>
-                            <th style="width: 15%">Scheduled ID</th>
+                            <th style="width: 15%">Trips</th>
                             <th style="width: 15%">User Name</th>
                             <th style="width: 15%">Quality</th>
                             <th style="width: 10%">Status(paid=1,unpaid=0)</th>
@@ -56,10 +73,14 @@ require_once("../layouts/sidebar.php");
                          $results = $mysqli->query("SELECT * FROM ticket_invoice");
                         $i = 1;
                         while ($invoice = $results->fetch_assoc()) {
+                            $scheldule_trip_sql_result = $mysqli->query("SELECT * FROM `scheduled_trips` WHERE `scheduled_trips_id`=$invoice[scheduled_trips_id]")->fetch_assoc();
+                            $from_sql_result = $mysqli->query("SELECT * FROM `trip_location` WHERE `trip_location_id`=$scheldule_trip_sql_result[from_location]")->fetch_assoc();
+                            $to_sql_result = $mysqli->query("SELECT * FROM `trip_location` WHERE `trip_location_id`=$scheldule_trip_sql_result[to_location]")->fetch_assoc();
+                            $user = $mysqli->query("SELECT * FROM `user` WHERE `user_id`=$invoice[user_id]")->fetch_assoc();
                             echo "<tr>";
                             echo "<td>$i</td>";
-                            echo "<td>$invoice[scheduled_trips_id]</td>";
-                            echo "<td>$invoice[username]</td>";
+                            echo "<td>$from_sql_result[city_name] To $to_sql_result[city_name]</td>";
+                            echo "<td>$user[user_name]</td>";
                             echo "<td>$invoice[qty]</td>";
                             echo "<td>$invoice[status]</td>";
                             echo "<td>$invoice[paymentRef]</td>";

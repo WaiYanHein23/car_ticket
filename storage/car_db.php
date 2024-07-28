@@ -9,11 +9,34 @@ function save_car($mysqli, $brand,$plate_number, $model, $car_img)
     }
 }
 
+function get_total_count_car($mysqli){
+    $sql = "SELECT COUNT(*) AS `total_count` FROM `car`";
+$result = $mysqli->query($sql);
+return $result->fetch_assoc();
+
+}
+
 function get_all_car($mysqli)
 {
     $sql = "SELECT * FROM `car`";
     $result = $mysqli->query($sql);
     return $result;
+}
+
+function get_all_car_start($mysqli,$start)
+{
+    $sql = "SELECT * FROM `car` LIMIT 4 OFFSET $start";
+    $result = $mysqli->query($sql);
+    return $result;
+}
+
+function get_all_car_pag($mysqli)
+{
+    $sql = "SELECT  COUNT(*) as count FROM `car`";
+    $result = $mysqli->query($sql);
+    $cuont_res = $result->fetch_assoc();
+    $count = $cuont_res['count'];
+    return $count;
 }
 
 function get_car_by_id($mysqli, $car_id)
@@ -43,3 +66,4 @@ function delete_car($mysqli, $car_id)
         return false;
     }
 }
+

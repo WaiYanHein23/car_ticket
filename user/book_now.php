@@ -11,13 +11,11 @@ $ref = date('Ymd').str_pad(mt_rand(1, 9999), 4, '0', STR_PAD_LEFT);
 
 ?>
 
-<!-- <div class="card">
-<h1>paymentRef</h1>
 
-</div> -->
 
 <?php
-  $insertQuery = $mysqli->query("INSERT INTO ticket_invoice (scheduled_trips_id, username, qty, paymentRef, total_price,transition_no) VALUES ('$sid', '$name', '$qty', '$ref', '$total_price','$transition_no' )");
+
+ $insertQuery = $mysqli->query("INSERT INTO ticket_invoice (scheduled_trips_id, user_id, qty, paymentRef, total_price,transition_no) VALUES ('$sid', '$name', '$qty', '$ref', '$total_price','$transition_no' )");
 
  if ($insertQuery) {
  	$booking_return = true;

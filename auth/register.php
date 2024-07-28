@@ -16,6 +16,7 @@ $username_err=$email_err=$password_err=$ph_no_err=$address_err="";
 $validate=true;
 $success=false;
 $invalid=false;
+$emailExists='';
 
 
 if(isset($_POST['submit'])){
@@ -48,6 +49,11 @@ if($ph_no==''){
 if($address==''){
   $validate=false;
   $address_err="Address can't be blank";
+}
+
+if(get_user_by_email($mysqli,$email)){
+  $validate=false;
+  $emailExists="Email already exists";
 }
 
 if($validate){
@@ -201,9 +207,11 @@ if($validate){
                   <span class="app-brand-text demo  fw-bolder">Online Bus Ticket</span>
                 </a>
               </div>
+              <div class="card bg-gray text-center text-danger"><?php echo $emailExists  ?></div>
               <?php
             if ($success) echo '<div class="alert alert-primary">User Registeration Done!</div>';
             if ($invalid) echo '<div class="alert alert-danger">Invalid Registeration!</div>';
+               
             ?>
               <!-- /Logo -->
 

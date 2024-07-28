@@ -6,8 +6,6 @@ require_once("../storage/user_db.php");
 if(isset($_POST['logout'])){
   setcookie("user","",-1,"/");
   header("Location:../auth/login.php");
-
-
 }
 
 $data = json_decode($_COOKIE['user'], true);
@@ -39,6 +37,13 @@ $user_image=$user['image'];
                     <a class="text-white fs-5 text-decoration-none" href="#footer">Contact</a>
                    
                 </li>
+
+                <li class="nav-item lh-1 me-5 bg-warning p-1 rounded">
+                  
+                  <a class="text-decoration-none " href="../user/invoice_history.php">History</a>
+                 
+              </li>
+
 
                 <li class="nav-item lh-1 me-3 text-white">
                   

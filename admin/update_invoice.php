@@ -38,8 +38,12 @@ $scheduled_trips_id=$username=$qty=$status=$refNo=$totalPrice=$transition_no="";
 if (isset($_GET["update_id"])) {
     $invoice_id = $_GET["update_id"];
     $invoice= get_invoice_by_id($mysqli,$invoice_id);
-    $scheduled_trips_id= $invoice['scheduled_trips_id'];
-    $username=$invoice['username'];
+    $scheduled_trips_id=$invoice['scheduled_trips_id'];
+    $scheldule_trip_sql_result = $mysqli->query("SELECT * FROM `scheduled_trips` WHERE `scheduled_trips_id`=$invoice[scheduled_trips_id]")->fetch_assoc();
+    $from_sql_result = $mysqli->query("SELECT * FROM `trip_location` WHERE `trip_location_id`=$scheldule_trip_sql_result[from_location]")->fetch_assoc();
+    $to_sql_result = $mysqli->query("SELECT * FROM `trip_location` WHERE `trip_location_id`=$scheldule_trip_sql_result[to_location]")->fetch_assoc();
+    $user = $mysqli->query("SELECT * FROM `user` WHERE `user_id`=$invoice[user_id]")->fetch_assoc();
+    $username=$invoice['user_id'];
     $qty=$invoice['qty'];
     $status=$invoice['status'];
     $refNo=$invoice['paymentRef'];

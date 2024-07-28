@@ -54,7 +54,6 @@ $email = $data['email'];
 $password=$data['password'];
 $ph_no = $data['ph_no'];
 $address = $data['address'];
-$image = $data['image'];
 $math=password_verify($old_password,$data['password']);
 if(!$math){
     $validate = false;

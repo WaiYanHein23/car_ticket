@@ -12,9 +12,6 @@ if (!$user) {
      }
   }
 
-require_once("../layouts/header.php");
- require_once("../layouts/sidebar.php");
- require_once("../layouts/admin_navar.php");
 
 $success='';
 $invalid='';
@@ -40,6 +37,11 @@ if(isset($_GET['delete_id'])){
         header("Location:../admin/location.php?invalid=$invalid");
     }
 }
+
+require_once("../layouts/header.php");
+require_once("../layouts/sidebar.php");
+require_once("../layouts/admin_navar.php");
+
 
 
 

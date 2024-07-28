@@ -25,7 +25,6 @@ if (isset($_POST['submit'])) {
     $address=$_POST['address'];
     $image = $_FILES['img']['tmp_name'];
     $img_name = $_FILES['img']['name'];
-    var_dump($img_name);    
     if($username===""){
         $validate=false;
         $name_err="Name can't blank";
@@ -49,6 +48,12 @@ if (isset($_POST['submit'])) {
         $address_err="Address can't blank";
 
     }
+
+    if(get_user_by_email($mysqli,$email)){
+        $validate=false;
+        $invalid="Email Already Exits";
+      }
+      
 
     if(!empty($img_name)){
     if (!str_contains($_FILES['img']['type'], 'image/')) {
@@ -97,14 +102,14 @@ if($validate){
  <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
       <!-- side var -->
-      <?php
+    <?php
 
       require_once("../layouts/sidebar.php");
 ?>
       <!-- /side var -->
 <div class="layout-page">
    <!-- Layout Page -->
-<?php require_once("../layouts/user_navar.php")?>
+<?php require_once("../layouts/admin_navar.php")?>
 
  
 <!-- car added -->

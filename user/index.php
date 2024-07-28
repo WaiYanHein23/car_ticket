@@ -11,6 +11,13 @@ if (!$user) {
   }
 }
 
+
+
+$data = json_decode($_COOKIE['user'], true);
+$user_name = $data['user_name'];
+$user_id = $data['user_id'];
+
+
 require_once("../layouts/header.php");
 require_once("../storage/car_db.php");
 require_once("../storage/trip_location_db.php");
@@ -44,7 +51,6 @@ if (isset($_GET['booking-form'])) {
     $to_location = $mysqli->query("SELECT trip_location_id,Concat(city_name) as location FROM trip_location where trip_location_id =" . $meta['to_location'])->fetch_array();
     $departure_time = $mysqli->query("SELECT scheduled_trips_id FROM scheduled_trips where scheduled_trips_id =" . $meta['scheduled_trips_id'])->fetch_array();
     $count = $mysqli->query("SELECT SUM(qty) as sum from ticket_invoice where scheduled_trips_id =" . $meta['scheduled_trips_id'])->fetch_array()['sum'];
-
     $price = isset($_GET['price']) ? $_GET['price'] : '';
   }
 
@@ -95,21 +101,24 @@ $invalid = false;
 
 
 
-        <div class="card w-50 ms-5 mt-5 p-2" style="background-color: rgb(71, 170, 44,0.5)">
+        <div class="card w-50 ms-5 mt-5 p-2" style="background-color: rgba(0, 0, 0, 0.6);">
           <div class="card p-0">
             <h3 class="text-center bg-warning">Invoice </h3>
           </div>
           <h5 class="text-primary text-center mt-3">Reference Number: <small class="text-white ms-3"><?php echo $ref ?></small></h5>
           <h5 class="text-primary text-center">Number of Seat :<small class="text-white ms-3"><?php echo $total_qty  ?> seat</small></h5>
           <h5 class="text-primary text-center">Total Price: <small class="text-white ms-3"><?php echo $total_booked_price  ?> ks</small></h5>
-          <h4 class="text-danger text-center">Copy or Capture your Reference number</h4>
+          <div class="container mx-5 w-75 ">
 
-          <h4 class="text-danger">
-            <?= !$status ? 'Unpaid' : '' ?>
-          </h4>
-          <h4 class="text-success">
-            <?= $status ? 'Paid' : '' ?>
-          </h4>
+            <small class="text-danger rounded ms-4 mt-1 p-2 fs-5" style="background-color:rgb(30, 54, 170);">
+              <?= !$status ? 'Please Wait....' : '' ?>
+            </small>
+            <small class="text-success rounded ms-3 mt-1 p-2 fs-5 w-50 mt-4" style="background-color:rgb(30, 54, 170);">
+              <?= $status ? 'Successful' : '' ?>
+            </small>
+
+          </div>
+          <h4 class="text-danger text-center mt-3">Copy or Capture your Reference number</h4>
         </div>
       <?php } ?>
     </div>
@@ -133,6 +142,7 @@ $invalid = false;
                 <p><b>From:</b> <?php echo $from_location['location'] ?></p>
                 <p><b>To:</b> <?php echo $to_location['location'] ?></p>
                 <p><b>Departure Time</b>: <?php echo date('M d,Y h:i A', strtotime($meta['departure_time'])) ?></p>
+                <p><b>Name: <?php echo $user_name  ?></b></p>
                 <!-- $count=>invoice_table -->
                 <!-- $meta=>scheduled_table -->
                 <?php if (($count < $meta['availability'])) : ?>
@@ -140,8 +150,8 @@ $invalid = false;
                   <input type="hidden" class="form-control" id="bid" name="bid" value='<?php echo isset($_GET['bid']) ? $_GET['bid'] : '' ?>' required="">
 
                   <div class="form-group mb-2 w-50">
-                    <label for="name" class="control-label">Name</label>
-                    <input type="text" class="form-control p-1" id="name" name="name" value="<?php echo isset($bmeta['name']) ? $bmeta['name'] : '' ?>">
+
+                    <input type="hidden" disabled class="form-control p-1" id="name" name="name" value="<?php echo $user_id ?>">
                   </div>
 
                   <div class="form-group mb-2 w-50">
@@ -184,8 +194,8 @@ $invalid = false;
 
 
   <div id="home" class="col-4  text-white" style="background-color: rgba(125, 149,161, 0.6);">
-    <div class="card p-5 m-4" style="background-color: rgba(125, 149,161, 0.7);">
-      <h1 class="text-center text-white">Search Trip</h1>
+    <div class="card p-5 m-4" style="background-color: rgba(255,171,0, 0.6);">
+      <h1 class="text-center text-primary">Search Trip</h1>
       <!-- <form> -->
       <div class="col-md-12">
         <div class="form-group mb-2">
@@ -193,9 +203,9 @@ $invalid = false;
           </select>
         </div>
         <div class="form-group mb-2">
-          <label for="from_location" class="control-label">From</label>
+          <label for="from_location" class="control-label">From </label>
           <select name="from_location" id="from_location" class="form-select">
-            <option value="00">....</option>
+            <option value="00">🚌 .....</option>
             <?php
             $locations = get_all_location($mysqli);
             $i = 1;
@@ -212,7 +222,7 @@ $invalid = false;
         <div class="form-group mb-2">
           <label for="to_location" class="control-label">To</label>
           <select name="to_location" id="to_location" class="form-select">
-            <option value="00">....</option>
+            <option value="00">📍 .....</option>
             <?php
             $locations = get_all_location($mysqli);
             $i = 1;
@@ -226,8 +236,8 @@ $invalid = false;
         </div>
 
         <div class="form-group mb-2">
-          <label for="departure_time" class="control-label">Date</label>
-          <input type="date" class="datetimepicker form-control" id="departure_time" name="departure_time" value="<?php echo isset($meta['departure_time']) ? date('Y/m/d H:i', strtotime($meta['departure_time'])) : '' ?>" autocomplete="off">
+          <label for="departure_time" class="control-label">Date </label>
+          <input type="date" class="form-control" id="departure_time" name="departure_time" value="<?php echo isset($meta['departure_time']) ? date('Y-m-d\TH:i', strtotime($meta['departure_time'])) : '' ?>" autocomplete="off">
         </div>
 
         <div class="card-action d-flex justify-content-center">
@@ -241,66 +251,115 @@ $invalid = false;
 </div>
 </div>
 
-<div class="row" style="background-color: rgb(142, 155, 170)">
-  <h1 class="text-center text-white fst-italic mt-4">Operators</h1>
-  <div class="row" id="header">
+<div class="row" style="background-color: rgb(37, 184,200,0.5)">
+  <h3 class="container bg-warning w-25 p-1 rounded-circle text-center text-primary fst-italic mt-4">Operators</h3>
+  <div class="row p-5" id="header">
     <?php
-    $results = get_all_car($mysqli);
+    $paga = 0;
+    if (isset($_GET['pag'])) {
+      $paga = $_GET['pag'];
+       
+    }
+    $results = get_all_car($mysqli, $paga);
     $i = 1;
     while ($car = $results->fetch_assoc()) {
     ?>
-      <div class="col-2 m-4">
-        <div class="">
-          <h4 class="text-center text-white mt-1"><?php echo $car['brand'] ?></h4>
-          <div style="height: 100px;" class="text-center mb-5">
-            <div class="card">
-              <img style='width: 230px; height: 150px;' src='data:image/jpeg;base64,<?php echo $car['image'] ?>' />
-            </div>
-          </div>
+      <div class="col-2 my-2">
+        <div class="card w-75">
+          <h6 class="text-center bg-success m-0 p-1"><?php echo $car['brand'] ?></h6>
+
+          <a href="">
+            <img style='width: 100%; height: 180px;' src='data:image/jpeg;base64,<?php echo $car['image'] ?>' />
+          </a>
+
         </div>
       </div>
+
     <?php
       $i++;
     } ?>
 
+    <div class="row mt-3">
+      <div class="col-2">
+        A
+      </div>
+      <div class="col-2 ">
+        B
+      </div>
+      <div class="col-2">
+        C
+      </div>
+      <div class="col-2">
+        D
+      </div>
+      <div class="col-2">
+        E
+     
+      </div>
+      <div class="col-2">
+      <nav>
+      <ul class="pagination mt-3">
+            
+        <?php
+        $count = get_all_car_pag($mysqli);
+        $p = 0;
+        for ($i = 1; $i < $count + 1; $i += 4) {
+        ?>
+        
+          <li class="page-item"><a class="page-link" href="?pag=<?= $p ?>"><?= $p + 1 ?></a></li>
+        <?php
+          $p++;
+        }
+        ?>
+               
+        </ul>
+      
+    </nav>
+
+      </div>
+     
+     
+    </div>
+
   </div>
+
 
 </div>
 
 
-<div class="row " id="card" style="background-color: rgb(142, 155, 170)">
+<div class="row " id="card" style="background-color: rgb(37, 184,200,0.5)">
   <div class="col-sm-4 ">
-    <div class="card w-50 ms-5 my-5 border border-warning">
+    <div class="card  w-50 ms-5 my-5  border border-warning" style="background-color:rgb(181, 177, 131)">
       <div class="card-body ">
         <h3 class="text-center text-primary"><i class="fa-solid fa-bus"></i></h3>
         <h5 class="card-title text-primary">
           20+ Bus Operators
         </h5>
-        <p class="card-text">Choose from 20+ major bus operators covering 100 destinations.</p>
+        <p class="card-text text-white">Choose from 20+ major bus operators covering 100 destinations.</p>
 
       </div>
     </div>
   </div>
   <div class="col-sm-4">
-    <div class="card w-50 ms-5 my-5 border border-warning">
+    <div class="card w-50 ms-5 my-5 border border-warning" style="background-color:rgb(181, 177, 131)">
       <div class="card-body">
         <h3 class="text-center text-primary"><i class="fa-solid fa-clock"></i></h3>
         <h5 class="card-title text-primary">
           Instant Booking
         </h5>
-        <p class="card-text">Book your trip in less than 5 min. Instant confirmation after payment.</p>
+        <p class="card-text text-white">Book your trip in less than 5 min. Instant confirmation after payment.</p>
 
       </div>
     </div>
   </div>
   <div class="col-sm-4">
-    <div class="card w-50 ms-5 my-5 border border-warning">
+    <div class="card w-50 ms-5 my-5 border border-warning" style="background-color:rgb(181, 177, 131)">
       <div class="card-body">
         <h3 class="text-center text-primary"><i class="fa-solid fa-person-circle-question"></i></h3>
         <h5 class="text-primary text-center card-title">
           Help 24/7
         </h5>
-        <p class="card-text">Our support center is available 24/7 for your questions and concerns.</p>
+        <p class="card-text text-white">Our support center is available 24/7 for your questions and concerns.</p>
 
       </div>
     </div>

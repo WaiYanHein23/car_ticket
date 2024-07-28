@@ -10,6 +10,9 @@ if(isset($_POST['logout'])){
 
 }
 
+require_once("../layouts/header.php");
+require_once("../layouts/sidebar.php");
+
 $data = json_decode($_COOKIE['user'], true);
 $user_name = $data['user_name'];
 $user = get_user_by_id($mysqli, $data['user_id']);
@@ -30,19 +33,6 @@ $user_image=$user['image'];
 
             <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
 
-              <!-- Search -->
-              <!-- <div class="navbar-nav align-items-center ms-5">
-                <div class="nav-item d-flex align-items-center">
-                  <i class="bx bx-search fs-4 lh-0"></i>
-                  <input
-                    type="text"
-                    class="form-control border-0 shadow-none"
-                    placeholder="Search..."
-                    aria-label="Search..."
-                  />
-                </div>
-              </div> -->
-              <!-- /Search -->
 
               
               <ul class="navbar-nav flex-row align-items-center ms-auto">
@@ -79,7 +69,7 @@ $user_image=$user['image'];
                       <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="../auth/admin_change_password.php">
+                      <a class="dropdown-item" href="../auth/admin_profile.php">
                         <i class="bx bx-user me-2"></i>
                         <span class="align-middle">My Profile</span>
                       </a>

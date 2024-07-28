@@ -58,26 +58,6 @@ function create_tables($mysqli) {
         return false;
     }
 
-    // $sql = "CREATE TABLE IF NOT EXISTS `seat`(
-    //     `seat_id` INT AUTO_INCREMENT,
-    //     `seat_name` VARCHAR(20) NOT NULL,
-    //     PRIMARY KEY (`seat_id`)
-    // )";
-    // if ($mysqli->query($sql) === false) {
-    //     echo "Error creating `seat` table: " . $mysqli->error;
-    //     return false;
-    // }
-
-    // $sql = "CREATE TABLE IF NOT EXISTS `payment_method`(
-    //     `payment_method_id` INT AUTO_INCREMENT,
-    //     `payment_method_name` VARCHAR(50) NOT NULL,
-    //     PRIMARY KEY(`payment_method_id`)
-    // )";
-    // if ($mysqli->query($sql) === false) {
-    //     echo "Error creating `payment_method` table: " . $mysqli->error;
-    //     return false;
-    // }
-
   
 
     $sql = "CREATE TABLE IF NOT EXISTS `trip_location`(
@@ -101,9 +81,9 @@ function create_tables($mysqli) {
         `availability` int(11) NOT NULL,
         `price` text NOT NULL,
         PRIMARY KEY (`scheduled_trips_id`),
-        FOREIGN KEY (`car_id`) REFERENCES `car`(`car_id`),
-        FOREIGN KEY (`from_location`) REFERENCES `trip_location`(`trip_location_id`),
-        FOREIGN KEY (`to_location`) REFERENCES `trip_location`(`trip_location_id`)
+        FOREIGN KEY (`car_id`) REFERENCES `car`(`car_id`)ON DELETE CASCADE ON UPDATE CASCADE,
+        FOREIGN KEY (`from_location`) REFERENCES `trip_location`(`trip_location_id`)ON DELETE CASCADE ON UPDATE CASCADE,
+        FOREIGN KEY (`to_location`) REFERENCES `trip_location`(`trip_location_id`)ON DELETE CASCADE ON UPDATE CASCADE
     )";
 
     if ($mysqli->query($sql) === false) {
@@ -114,55 +94,23 @@ function create_tables($mysqli) {
     $sql = "CREATE TABLE IF NOT EXISTS `ticket_invoice`(
         `invoice_id` INT AUTO_INCREMENT,
         `scheduled_trips_id` INT NOT NULL,
-        `username` VARCHAR(100) NOT NULL,
+        `user_id` INT NOT NULL,
         `qty` INT NOT NULL,
         `status` tinyint(1) NOT NULL DEFAULT 0 COMMENT '0= unpaid , 1= paid',
         `paymentRef` TEXT NOT NULL,
         `total_price` TEXT NOT NULL,
-        `transition_no` DECIMAL(10,2) NOT NULL,
+        `transition_no` TEXT NOT NULL,
         PRIMARY KEY(`invoice_id`),
-        FOREIGN KEY (`scheduled_trips_id`) REFERENCES `scheduled_trips`(`scheduled_trips_id`)
+        FOREIGN KEY (`scheduled_trips_id`) REFERENCES `scheduled_trips`(`scheduled_trips_id`)ON DELETE CASCADE ON UPDATE CASCADE,
+        FOREIGN KEY (`user_id`) REFERENCES `user`(`user_id`)ON DELETE CASCADE ON UPDATE CASCADE
+
     )";
     if ($mysqli->query($sql) === false) {
         echo "Error creating `ticket_invoice` table: " . $mysqli->error;
         return false;
     }
 
-
-    // $sql = "CREATE TABLE IF NOT EXISTS `car_seat` (
-    //     `car_seat_id` INT AUTO_INCREMENT,
-    //     `scheduled_trips_id` INT NOT NULL,
-    //     `seat_id` INT NOT NULL,
-    //     `invoice_id` INT,
-    //     `booking_date` DATE,
-    //     PRIMARY KEY (`car_seat_id`),
-    //     FOREIGN KEY (`scheduled_trips_id`) REFERENCES `scheduled_trips`(`scheduled_trips_id`),
-    //     FOREIGN KEY (`seat_id`) REFERENCES `seat`(`seat_id`),
-    //     FOREIGN KEY (`invoice_id`) REFERENCES `invoice`(`invoice_id`)
-    // )";
-    
-    // if ($mysqli->query($sql) === false) {
-    //     echo "Error creating `car_seat` table: " . $mysqli->error;
-    //     return false;
-    // }
-
-    // return true;
 }
-
-// if (create_db($mysqli)) {
-//     if (select_db($mysqli)) {
-//         if (create_tables($mysqli)) {
-            
-//         } else {
-//             echo "Error creating tables.";
-//         }
-//     } else {
-//         echo "Error selecting database.";
-//     }
-// } else {
-//     echo "Error creating database.";
-// }
-
 
 create_db($mysqli);
 select_db($mysqli);

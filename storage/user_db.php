@@ -38,6 +38,38 @@ function update_user($mysqli,$user_id,$username,$email,$password,$ph_no,$address
 
 }
 
+
+// function getUserName($mysqli) {
+//     $sql = "SELECT * FROM `user` WHERE `is_admin` = 0 LIMIT 1";
+//     $result = $mysqli->query($sql);
+
+//     if ($result === false) {
+//         // Handle query error
+//         echo "Error: " . $mysqli->error;
+//         return null;
+//     }
+
+//     return $result->fetch_assoc();
+// }
+
+
+
+function get_total_count_user($mysqli){
+    $sql = "SELECT COUNT(*) AS `total_count` FROM `user` WHERE `is_admin`=0";
+$result = $mysqli->query($sql);
+return $result->fetch_assoc();
+
+}
+
+
+function get_total_count_admin($mysqli){
+    $sql = "SELECT COUNT(*) AS `total_count` FROM `user` WHERE `is_admin`=1";
+$result = $mysqli->query($sql);
+return $result->fetch_assoc();
+
+}
+
+
 function update_user_noimage($mysqli,$user_id,$username,$email,$password,$ph_no,$address){
 
     $sql="UPDATE  `user` SET `user_name`='$username',`email`='$email',`password`='$password',`ph_no`='$ph_no',`address`='$address' WHERE `user_id`='$user_id'";

@@ -8,7 +8,7 @@
 			<div class="row">
 				<div class="card col-md-12">
 					
-					<div class="card-body mx-auto rounded" style="background-color: rgb(95, 97,230,0.3);">
+					<div class="card-body mx-auto rounded" style="background-color: rgb(0,0,0,0.3);">
 						<table class="table table-striped table-bordered text-white" id="schedule-field">
 							<colgroup>
 								<col width="5%">

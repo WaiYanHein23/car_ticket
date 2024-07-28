@@ -1,24 +1,21 @@
 <?php
-require_once("../layouts/header.php");
 require_once("../storage/database.php");
 require_once("../storage/auth_user.php");
 require_once("../storage/user_db.php");
+
+
+require_once("../layouts/header.php");
+require_once("../layouts/sidebar.php");
+require_once("../layouts/admin_navar.php");
+
+
 ?>
 
 
  <!-- Layout wrapper -->
  <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
-      <!-- side var -->
-      <?php
-
-      require_once("../layouts/sidebar.php");
-?>
-      <!-- /side var -->
 <div class="layout-page">
-   <!-- Layout Page -->
-<?php require_once("../layouts/admin_navar.php")?>
-
  
 <!-- car added -->
 
@@ -61,7 +58,8 @@ $email = $data['email'];
 $password=$data['password'];
 $ph_no = $data['ph_no'];
 $address = $data['address'];
-$image = $data['image'];
+// $image=$data['image'];
+
 $math=password_verify($old_password,$data['password']);
 if(!$math){
     $validate = false;
@@ -76,9 +74,9 @@ if($new_password !== $confirm_password){
 
 if($validate){
     $password_hash=password_hash($new_password,PASSWORD_DEFAULT);
-    $result = update_user($mysqli,$user_id,$username,$email,$password_hash,$ph_no,$address,$image);
+    $result = update_user_noimage($mysqli,$user_id,$username,$email,$password_hash,$ph_no,$address);
     if($result){
-        $success="Passwod Change Success";
+        $success="Password Change Success";
        }else{
         $invalid="Password Change Fail";
        }
@@ -165,7 +163,7 @@ if ($success) { ?>
     <!-- / Layout wrapper -->
 
 
-    <?php
+ <?php
 
     require_once("../layouts/footer.php");
-    ?>
+ ?>

@@ -23,16 +23,7 @@ function get_schedule_by_id($mysqli, $id)
     return $result->fetch_assoc();
 }
 
-// function get_total_current_qty($mysqli, $id)
-// {
-//     $sql = "SELECT SUM(`invoice`.`qty`) AS `total_qty`
-//     FROM `scheduled_trips`
-//     LEFT JOIN `invoice` ON `invoice`.`scheduled_trips_id` = `scheduled_trips`.`scheduled_trips_id`
-//     WHERE `scheduled_trips`.`scheduled_trips_id` = 1";
 
-//     $result = $mysqli->query($sql);
-//     return $result->fetch_assoc();
-// }
 
 function update_schedule($mysqli, $schedule_id, $car_id, $from_location, $to_location, $departure_time, $availability, $price)
 {
@@ -54,6 +45,18 @@ function delete_schedule_by_location_id($mysqli, $id)
         return false;
     }
 }
+
+
+function delete_schedule_by_car_id($mysqli,$id)
+{
+    $sql = "DELETE  FROM `scheduled_trips` WHERE `car_id`='$id'";
+    if ($mysqli->query($sql)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 
 
 function delete_schedule($mysqli, $schedule_id)

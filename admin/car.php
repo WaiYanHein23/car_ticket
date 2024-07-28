@@ -2,6 +2,8 @@
 require_once("../storage/auth_user.php");
 require_once("../storage/database.php");
 require_once("../storage/car_db.php");
+require_once("../storage/schedule_db.php");
+require_once("../storage/invoice_db.php");
 
 
 if (!$user) {
@@ -12,9 +14,7 @@ if (!$user) {
     }
   }
 
-require_once("../layouts/header.php");
-require_once("../layouts/sidebar.php");
-require_once("../layouts/admin_navar.php");
+
 $success='';
 $invalid='';
 
@@ -26,17 +26,26 @@ if (isset($_GET["invalid"])) $invalid = $_GET["invalid"];
 
 if(isset($_GET['delete_id'])){
     $car_id=$_GET['delete_id'];
-    $status=delete_car($mysqli,$car_id);
+     $status=delete_schedule_by_car_id($mysqli,$car_id);
     if($status){
-        $success="Delete Success";
-        header("Location:../admin/car.php?success=$success");
-    }else{
+        $status_innvoice=delete_invoice_by_scheduled_trips_id($mysqli,$car_id);
+        if($status_innvoice){
+            $status_car=delete_car($mysqli,$car_id);
+            if($status_car){
+            $success="Delete Success";
+            header("Location:../admin/car.php?success=$success");
+       }
+           
+   }
+ }else{
         $invalid="Delete Fail";
         header("Location:../admin/car.php?invalid=$invalid");
     }
 }
 
-
+require_once("../layouts/header.php");
+require_once("../layouts/sidebar.php");
+require_once("../layouts/admin_navar.php");
 
 ?>
 <!-- Layout wrapper -->
@@ -46,11 +55,6 @@ if(isset($_GET['delete_id'])){
 
 <div class="layout-page">
    <!-- Layout Page -->
-
-
- 
-
-
 
 <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4">
     <div>

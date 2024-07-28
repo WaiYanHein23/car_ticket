@@ -2,6 +2,7 @@
 require_once("../storage/auth_user.php");
 require_once("../storage/database.php");
 require_once("../storage/schedule_db.php");
+require_once("../storage/invoice_db.php");
 
 
 if (!$user) {
@@ -12,9 +13,6 @@ if (!$user) {
     }
   }
 
-require_once("../layouts/header.php");
-require_once("../layouts/sidebar.php");
-require_once("../layouts/admin_navar.php");
 
 $success='';
 $invalid='';
@@ -27,15 +25,24 @@ if (isset($_GET["invalid"])) $invalid = $_GET["invalid"];
 
 if(isset($_GET['delete_id'])){
     $schedule_id=$_GET['delete_id'];
-    $status=delete_schedule($mysqli,$schedule_id);
+    $status=delete_invoice_by_scheduled_trips_id($mysqli,$schedule_id);
     if($status){
-        $success="Delete Success";
-        header("Location:../admin/schedule.php?success=$success");
+        $status_scheduled=delete_schedule($mysqli,$schedule_id);
+        if($status_scheduled){
+            $success="Delete Success";
+            header("Location:../admin/schedule.php?success=$success");
+        }
+        
     }else{
         $invalid="Delete Fail";
         header("Location:../admin/schedule.php?invalid=$invalid");
     }
 }
+
+
+require_once("../layouts/header.php");
+require_once("../layouts/sidebar.php");
+require_once("../layouts/admin_navar.php");
 
 
 
@@ -100,11 +107,14 @@ if ($success) { ?>
                         $results = get_all_schedule($mysqli);
                         $i = 1;
                         while ($schedule = $results->fetch_assoc()) {
+                            $car_result=$mysqli->query("SELECT * FROM `car` WHERE `car_id`=$schedule[car_id]")->fetch_assoc();
+                            $from_location=$mysqli->query("SELECT * FROM `trip_location` WHERE `trip_location_id`=$schedule[from_location]")->fetch_assoc();
+                            $to_location=$mysqli->query("SELECT * FROM `trip_location` WHERE `trip_location_id`=$schedule[to_location]")->fetch_assoc();
                             echo "<tr>";
                             echo "<td>$i</td>";
-                            echo "<td>$schedule[car_id]</td>";
-                            echo "<td>$schedule[from_location]</td>"; 
-                            echo "<td>$schedule[to_location]</td>"; 
+                            echo "<td>$car_result[brand]</td>";
+                            echo "<td>$from_location[city_name]</td>"; 
+                            echo "<td>$to_location[city_name]</td>"; 
                             echo "<td>$schedule[departure_time]</td>";
                             echo "<td>$schedule[availability]</td>"; 
                             echo "<td>$schedule[price]</td>";                           

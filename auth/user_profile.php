@@ -3,7 +3,6 @@
 require_once("../storage/database.php");
 require_once("../storage/auth_user.php");
 require_once("../storage/user_db.php");
-require_once("../layouts/user_navar.php");
 
 $username=$email=$ph_no=$address=$image="";
 $username_err=$email_err=$ph_no_err=$address_err=$image_err="";
@@ -25,8 +24,7 @@ if (isset($_POST['submit'])) {
     $ph_no=$_POST['ph_no'];
     $address=$_POST['address'];
     $image = $_FILES['img']['tmp_name'];
-    $img_name = $_FILES['img']['name'];
-    var_dump($img_name);    
+    $img_name = $_FILES['img']['name'];   
     if($username===""){
         $validate=false;
         $name_err="Name can't blank";
@@ -51,9 +49,13 @@ if (isset($_POST['submit'])) {
 
     }
 
+    if(get_user_by_email($mysqli,$email)){
+        $validate=false;
+        $invalid="Email Already Exits";
+      }
+
     if(!empty($img_name)){
     if (!str_contains($_FILES['img']['type'], 'image/')) {
-        echo "hello";
         $validate=false;
         $img_err = "Please upload only image!";
     }
@@ -63,7 +65,7 @@ if (isset($_POST['submit'])) {
 
 if($validate){
     if(!empty($img_name)) {
-        $user_image=file_get_contents($image);
+    $user_image=file_get_contents($image);
     $base64=base64_encode($user_image);
     $result = update_user($mysqli,$user_id,$username,$email,$password,$ph_no,$address,$base64);
     if($result){
@@ -98,7 +100,7 @@ if($validate){
  <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
 <div class="layout-page">
-
+<?php require_once("../layouts/user_navar.php"); ?>
  
 <!-- car added -->
 

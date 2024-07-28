@@ -3,6 +3,7 @@ require_once("../storage/auth_user.php");
 require_once("../storage/database.php");
 require_once("../storage/schedule_db.php");
 require_once("../storage/car_db.php");
+require_once("../storage/trip_location_db.php");
 
 
 if (!$user) {
@@ -52,7 +53,7 @@ require_once("../layouts/admin_navar.php");
                     $car_id_err = "Brand can't blank";
                 }
 
-                if ($from_location === '') {
+                if ($from_location === "00") {
                     $validate = false;
                     $from_location_err = "From Location can't blank";
                 }
@@ -150,7 +151,7 @@ require_once("../layouts/admin_navar.php");
                                             <div class="form-floating form-floating-custom mb-3">
                                                 
                                                 <select class="form-select"  name="car_id">
-                                                    <option value="00">Car ID </option>
+                                                    <option value="00">Car </option>
                                                     <?php
                                                     $cars=get_all_car($mysqli);
                                                     $i=1;
@@ -159,23 +160,47 @@ require_once("../layouts/admin_navar.php");
                                                     if($car_id==$car['car_id']) $select="selected";
                                                    
                                                     ?>
-                                                    <option <?php echo $select ?> value="<?php echo $car['car_id']  ?>"><?php echo  $car['car_id'] ?></option>
+                                                    <option <?php echo $select ?> value="<?php echo $car['car_id']  ?>"><?php echo  $car['brand'] ?></option>
                                                     <?php  } ?>
                                                 </select>
                                                 <small class="text-danger"><?php echo $car_id_err ?></small>
                                             </div>
 
-                                            
 
                                             <div class="form-floating form-floating-custom mb-3">
-                                                <input type="number" class="form-control" id="floatingInput" placeholder="From Location" name="from_location" value="<?php echo $from_location ?>" />
-                                                <label for="floatingInput">From Location</label>
+                                                
+                                                <select class="form-select"  name="from_location">
+                                                    <option value="00">From Location </option>
+                                                    <?php
+                                                    $locations=get_all_location($mysqli);
+                                                    $i=1;
+                                                    while($location=$locations->fetch_assoc()){
+                                                        $select='';
+                                                    if($from_location==$location['from_location']) $select="selected";
+                                                   
+                                                    ?>
+                                                    <option value="<?php echo $location['trip_location_id']  ?>"><?php echo  $location['city_name'] ?></option>
+                                                    <?php  } ?>
+                                                </select>
                                                 <small class="text-danger"><?php echo $from_location_err ?></small>
                                             </div>
 
+                        
                                             <div class="form-floating form-floating-custom mb-3">
-                                                <input type="number" class="form-control" id="floatingInput" placeholder="To Location" name="to_location" value="<?php echo $to_location ?>" />
-                                                <label for="floatingInput">To Location</label>
+                                                
+                                                <select class="form-select"  name="to_location">
+                                                    <option value="00">To Location </option>
+                                                    <?php
+                                                    $locations=get_all_location($mysqli);
+                                                    $i=1;
+                                                    while($location=$locations->fetch_assoc()){
+                                                        $select='';
+                                                    if($to_location==$location['to_location']) $select="selected";
+                                                   
+                                                    ?>
+                                                    <option value="<?php echo $location['trip_location_id']  ?>"><?php echo  $location['city_name'] ?></option>
+                                                    <?php  } ?>
+                                                </select>
                                                 <small class="text-danger"><?php echo $to_location_err ?></small>
                                             </div>
 
