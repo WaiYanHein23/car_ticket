@@ -280,22 +280,11 @@ $invalid = false;
     } ?>
 
     <div class="row mt-3">
-      <div class="col-2">
-        A
+      
+      <div class="col-10">
+      <h3 class="text-danger text-center w-25"><i class="fa-solid fa-bus"></i></h3>
       </div>
-      <div class="col-2 ">
-        B
-      </div>
-      <div class="col-2">
-        C
-      </div>
-      <div class="col-2">
-        D
-      </div>
-      <div class="col-2">
-        E
-     
-      </div>
+      
       <div class="col-2">
       <nav>
       <ul class="pagination mt-3">
@@ -318,7 +307,7 @@ $invalid = false;
 
       </div>
      
-     
+      
     </div>
 
   </div>
