@@ -2,6 +2,8 @@
 require_once("../storage/auth_user.php");
 require_once("../storage/database.php");
 require_once('../storage/invoice_db.php');
+require_once('../storage/user_db.php');
+require_once('../storage/schedule_db.php');
 
 
 if (!$user) {
@@ -33,7 +35,7 @@ $invalid="";
 $success='';
 
 
-$scheduled_trips_id=$username=$qty=$status=$refNo=$totalPrice=$transition_no="";
+$scheduled_trips_id=$user_id=$qty=$status=$refNo=$totalPrice=$transition_no="";
 
 if (isset($_GET["update_id"])) {
     $invoice_id = $_GET["update_id"];
@@ -43,7 +45,7 @@ if (isset($_GET["update_id"])) {
     $from_sql_result = $mysqli->query("SELECT * FROM `trip_location` WHERE `trip_location_id`=$scheldule_trip_sql_result[from_location]")->fetch_assoc();
     $to_sql_result = $mysqli->query("SELECT * FROM `trip_location` WHERE `trip_location_id`=$scheldule_trip_sql_result[to_location]")->fetch_assoc();
     $user = $mysqli->query("SELECT * FROM `user` WHERE `user_id`=$invoice[user_id]")->fetch_assoc();
-    $username=$invoice['user_id'];
+    $user_id=$invoice['user_id'];
     $qty=$invoice['qty'];
     $status=$invoice['status'];
     $refNo=$invoice['paymentRef'];
@@ -53,14 +55,14 @@ if (isset($_GET["update_id"])) {
     
     if (isset($_POST["update"])) {
         $scheduled_trips_id= $_POST['scheduled_trips_id'];
-        $username=$_POST['username'];
+        $user_id=$_POST['user_id'];
         $qty=$_POST['qty'];
         $status=$_POST['status'];
         $refNo=$_POST['references_no'];
         $total_price=$_POST['total_price'];
         $transition_no=$_POST['transition_no'];
     
-            $status = update_invoice($mysqli,$invoice_id,$scheduled_trips_id,$username,$qty,$status,$refNo,$total_price,$transition_no);
+            $status = update_invoice($mysqli,$invoice_id,$scheduled_trips_id,$user_id,$qty,$status,$refNo,$total_price,$transition_no);
             if ($status) {
                 $success = "Invoice Updated Success!";
             } else {
@@ -69,6 +71,8 @@ if (isset($_GET["update_id"])) {
         }
     }
 
+
+    
 
 
 
@@ -88,24 +92,54 @@ if ($success) { ?>
         <div class="col-12">
             <div class="card ">
             <div class="ms-md-auto py-2 py-md-0 m-3">
-        <a href="invoice.php" class="btn btn-primary btn-round me-2">Invoice List</a>
+        <a href="index.php" class="btn btn-primary btn-round me-2">Invoice List</a>
     </div>
                 <div class="row d-flex justify-content-center">
-                    <div class="col-6 card mt-4">
+                    <div class="col-6 card mt-4 ">
                         <div class="card-header">
                                 <div class="card-title text-center fs-2">Invoice Update</div>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body ">
 
                             <div class="form-floating form-floating-custom mb-3">
-                                <input type="text" class="form-control" id="floatingInput" placeholder="Scheduled ID" name="scheduled_trips_id" value="<?php echo $scheduled_trips_id ?>" />
-                                <label for="floatingInput">Scheduled ID</label>
+                                <select class="form-select"  name="scheduled_trips_id">
+                                                    <option value="00">Scheduled Trips</option>
+                                                    <?php
+                                                    $schedules=get_all_schedule($mysqli);
+                                                    $i=1;
+                                                    while($scheduled=$schedules->fetch_assoc()){                         
+                                                        $from_sql_result = $mysqli->query("SELECT * FROM `trip_location` WHERE `trip_location_id`=$scheduled[from_location]")->fetch_assoc();
+                                                         $to_sql_result = $mysqli->query("SELECT * FROM `trip_location` WHERE `trip_location_id`=$scheduled[to_location]")->fetch_assoc();
+                                                        $select='';
+                                                    if($scheduled_trips_id==$scheduled['scheduled_trips_id']) $select="selected";
+                                                   
+                                                    ?>
+                                                    <option value="<?php echo $scheduled['scheduled_trips_id']  ?>"><?php echo $from_sql_result['city_name'] .' To '. $to_sql_result['city_name']; ?></option>
+                                                    <?php  } ?>
+                                </select>
+
+
                             </div>
                             
 
                             <div class="form-floating form-floating-custom mb-3">
-                                <input type="text" class="form-control" id="floatingInput" placeholder="User Name" name="username" value="<?php echo $username ?>" />
-                                <label for="floatingInput">User Name</label>
+
+
+                                <select class="form-select"  name="user_id">
+                                                    <option value="00">User Name </option>
+                                                    <?php
+                                                    $users=total_user($mysqli);
+                                                    $i=1;
+                                                    while($user=$users->fetch_assoc()){
+                                                        $select='';
+                                                    if($user_id==$car['user_id']) $select="selected";
+                                                   
+                                                    ?>
+                                                    <option <?php echo $select ?> value="<?php echo $user['user_id']  ?>"><?php echo  $user['user_name'] ?></option>
+                                                    <?php  } ?>
+                             </select>
+
+
                             </div>
 
 
@@ -158,8 +192,6 @@ if ($success) { ?>
 </div>
 
 <!-- /car added -->
-
-
 
         </div>
     </div>

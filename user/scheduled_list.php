@@ -6,10 +6,10 @@
 				&nbsp;
 			</div>
 			<div class="row">
-				<div class="card col-md-12">
+				<div class="card col-md-12"  style="background-color: rgba(47,184,204,0.5);" >
 					
-					<div class="card-body mx-auto rounded" style="background-color: rgb(0,0,0,0.3);">
-						<table class="table table-striped table-bordered text-white" id="schedule-field">
+					<div class="card-body mx-auto rounded ">
+						<table class="table table-striped table-bordered " id="schedule-field">
 							<colgroup>
 								<col width="5%">
 								<col width="10%">
@@ -21,14 +21,14 @@
 							</colgroup>
 							<thead>
 								<tr>
-									<th class="text-center text-white">#</th>
-									<th class="text-center text-white">Date</th>
-									<th class="text-center text-white">Bus</th>
-									<th class="text-center text-white">Location</th>
-									<th class="text-center text-white">Departure</th>
-									<th class="text-center text-white">Availability</th>
-									<th class="text-center text-white">Price</th>
-                                    <th class="text-center text-white">Action</th>
+									<th class="text-center text-danger">#</th>
+									<th class="text-center text-danger">Date</th>
+									<th class="text-center text-danger">Bus</th>
+									<th class="text-center text-danger">Location</th>
+									<th class="text-center text-danger">Departure</th>
+									<th class="text-center text-danger">Availability</th>
+									<th class="text-center text-danger">Price</th>
+                                    <th class="text-center text-danger">Action</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -85,7 +85,7 @@
                                 tr.append('<td>' + resp[k].time + '</td>');
                                 tr.append('<td>' + resp[k].availability + '</td>');
                                 tr.append('<td>' + resp[k].price + '</td>');
-                                tr.append('<td><center><button class="btn btn-sm btn-primary mr-2 text-white"  id="book_now" data-id="' + resp[k].scheduled_trips_id + '"><strong>Book Now</strong></button></center></td>');
+                                tr.append('<td><center><button class="btn btn-sm btn-danger mr-2 text-white"  id="book_now" data-id="' + resp[k].scheduled_trips_id + '"><strong>Book Now</strong></button></center></td>');
                                 $('#schedule-field tbody').append(tr);
                             });
                         } else {

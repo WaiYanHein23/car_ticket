@@ -2,7 +2,6 @@
 require_once("../storage/database.php");
 require_once("../storage/user_db.php");
 
-
 if (isset($_COOKIE['user'])) {
   $user = json_decode($_COOKIE['user'], true);
   if ($user['is_admin']) {
@@ -12,6 +11,10 @@ if (isset($_COOKIE['user'])) {
   }
 }
 
+$admin = select_user_by_id($mysqli,1);
+if($admin===null){
+  save_admin($mysqli);
+}
 
 $email=$password="";
 $email_err=$password_err=$user_err=$password_err_mess="";
@@ -36,6 +39,11 @@ if(isset($_POST['submit'])){
     $validate = false;
     $user_err="User does not exits";
   }
+
+  // if(get_user_by_email($mysqli,$email)){
+  //   $validate=false;
+  //   $user_err="Email already exists";
+  // }
 
 
   if($validate){
@@ -198,7 +206,7 @@ if(isset($_POST['submit'])){
                       </g>
                     </svg>
                   </span>
-                  <span class="app-brand-text demo fw-bolder">Online Bus Ticket</span>
+                  <span class="app-brand-text demo fw-bolder">Online Car Ticket</span>
                 </a>
               </div>
               <!-- /Logo -->
@@ -240,12 +248,12 @@ if(isset($_POST['submit'])){
                   </div>
                   <small class="text-danger"><?php echo $password_err ?></small>
                 </div>
-                <div class="mb-3">
+                <!-- <div class="mb-3">
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" id="remember-me" />
                     <label class="form-check-label text-white" for="remember-me"> Remember Me </label>
                   </div>
-                </div>
+                </div> -->
                 <div class="mb-3">
                   <button name="submit" class="btn btn-primary d-grid w-100" type="submit">Sign in</button>
                 </div>

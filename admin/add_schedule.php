@@ -140,7 +140,7 @@ require_once("../layouts/admin_navar.php");
                                 <div class="row d-flex justify-content-center">
                                     <div class="col-6 card mt-4">
                                         <div class="card-header">
-                                            <?php if (!isset($_GET['id'])) { ?>
+                                            <?php if (!isset($_GET['update_id'])) { ?>
                                                 <div class="card-title text-center fs-2">Schedule Add</div>
                                             <?php } else { ?>
                                                 <div class="card-title text-center fs-2">Schedule Update</div>

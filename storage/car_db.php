@@ -25,7 +25,15 @@ function get_all_car($mysqli)
 
 function get_all_car_start($mysqli,$start)
 {
-    $sql = "SELECT * FROM `car` LIMIT 4 OFFSET $start";
+    $sql = "SELECT * FROM `car` LIMIT 6 OFFSET $start";
+    $result = $mysqli->query($sql);
+    return $result;
+}
+
+
+function get_all_car_pagination($mysqli,$start)
+{
+    $sql = "SELECT * FROM `car` LIMIT 8 OFFSET $start";
     $result = $mysqli->query($sql);
     return $result;
 }

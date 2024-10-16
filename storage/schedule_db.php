@@ -28,7 +28,7 @@ function get_schedule_by_id($mysqli, $id)
 function update_schedule($mysqli, $schedule_id, $car_id, $from_location, $to_location, $departure_time, $availability, $price)
 {
 
-    $sql = "UPDATE  `scheduled_trips` SET `car_id`=$car_id,`from_location`='$from_location',`to_location`='$to_location',`departure_time`='$departure_time',`availability`='$availability',`price`='$price' WHERE `scheduled_trips_id`=$schedule_id";
+    $sql = "UPDATE  `scheduled_trips` SET `car_id`='$car_id',`from_location`='$from_location',`to_location`='$to_location',`departure_time`='$departure_time',`availability`='$availability',`price`='$price' WHERE `scheduled_trips_id`=$schedule_id";
     if ($mysqli->query($sql)) {
         return true;
     } else {

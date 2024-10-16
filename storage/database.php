@@ -96,13 +96,15 @@ function create_tables($mysqli) {
         `scheduled_trips_id` INT NOT NULL,
         `user_id` INT NOT NULL,
         `qty` INT NOT NULL,
+        `payment_type` TEXT NOT NULL,
         `status` tinyint(1) NOT NULL DEFAULT 0 COMMENT '0= unpaid , 1= paid',
         `paymentRef` TEXT NOT NULL,
         `total_price` TEXT NOT NULL,
         `transition_no` TEXT NOT NULL,
+        `created_date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
         PRIMARY KEY(`invoice_id`),
-        FOREIGN KEY (`scheduled_trips_id`) REFERENCES `scheduled_trips`(`scheduled_trips_id`)ON DELETE CASCADE ON UPDATE CASCADE,
-        FOREIGN KEY (`user_id`) REFERENCES `user`(`user_id`)ON DELETE CASCADE ON UPDATE CASCADE
+        FOREIGN KEY (`scheduled_trips_id`) REFERENCES `scheduled_trips`(`scheduled_trips_id`) ,
+        FOREIGN KEY (`user_id`) REFERENCES `user`(`user_id`)
 
     )";
     if ($mysqli->query($sql) === false) {

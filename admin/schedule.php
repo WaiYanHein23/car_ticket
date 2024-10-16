@@ -91,7 +91,7 @@ if ($success) { ?>
                     <thead>
                         <tr>
                             <th style="width: 15%">No</th>
-                            <th style="width: 15%">Brand Name</th>
+                            <th style="width: 15%">Car Name</th>
                             <th style="width: 15%">From Location</th>
                             <th style="width: 15%">To Location</th>
                             <th style="width: 15%">Departure Time</th>

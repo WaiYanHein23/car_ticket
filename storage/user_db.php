@@ -9,6 +9,23 @@ if($mysqli->query($sql)){
 
 }
 
+function save_admin($mysqli)
+{
+    $password = password_hash("Admin@1234", PASSWORD_DEFAULT);
+    $sql = "INSERT INTO `user`(`user_name`,`email`,`password`,`address`,`ph_no`,`is_admin`) VALUES ('admin','admin@gmail.com','$password','pyay','09445088092',true)";
+    if ($mysqli->query($sql)) {
+        return true;
+    }
+    return false;
+}
+ function select_user_by_id($mysqli,$id){
+    $sql="select * from user where user_id=$id";
+    $user=$mysqli->query($sql);
+    if($user){
+        return $user->fetch_assoc();
+    }
+ }
+
 function get_all_user($mysqli){
     $sql="SELECT * FROM `user`";
     $result=$mysqli->query($sql);
@@ -56,8 +73,15 @@ function update_user($mysqli,$user_id,$username,$email,$password,$ph_no,$address
 
 function get_total_count_user($mysqli){
     $sql = "SELECT COUNT(*) AS `total_count` FROM `user` WHERE `is_admin`=0";
-$result = $mysqli->query($sql);
-return $result->fetch_assoc();
+    $result = $mysqli->query($sql);
+    return $result->fetch_assoc();
+
+}
+
+function total_user($mysqli){
+    $sql="SELECT * from `user` where `is_admin`=0";
+    $result=$mysqli->query($sql);
+    return $result;
 
 }
 

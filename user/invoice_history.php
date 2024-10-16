@@ -19,7 +19,7 @@ require_once("../layouts/user_navar.php");
 
 ?>
 
-   <div class="row" style="background-color: rgba(141,214,224, 0.6);min-height: 70vh;">
+   <div class="row" style="background-color: rgba(141,214,224);min-height: 70vh;">
       <?php
     $invoice_histories=$mysqli->query("SELECT * FROM `ticket_invoice` WHERE `user_id`=$user_id");
     $invoice_histories_count=$mysqli->query("SELECT * FROM `ticket_invoice` WHERE `user_id`=$user_id");
@@ -38,14 +38,21 @@ require_once("../layouts/user_navar.php");
       $from = $from_sql_result->fetch_assoc();
       $to = $to_sql_result->fetch_assoc();
     ?>
-      <div class="col-3 m-4 ms-5" >
-        <div class="card d-block p-2 " style="background-color: rgb(204, 36, 67,0.8)">
-        <h6 class="text-center fs-6"><span class="text-warning me-3">Trips:  </small> <small class="text-white"> <?php echo $from['city_name']  ?> To <?php echo $to['city_name']  ?></small></h5>
-        <h5 class="text-center fs-6"><small class="text-warning me-3">References:</small>  <small class="text-white"><?php echo $invoice_history['paymentRef'] ?></small></h5>
-        <h5 class="text-center fs-6"><small class="text-warning me-3">Total Seats:</small> <small class="text-white"> <?php echo $invoice_history['qty'] ?>  seats</small> </h5>
-        <h5 class="text-center fs-6"><small class="text-warning me-3">Total Prices:</small><small class="text-white"> <?php echo $invoice_history['total_price'] ?> ks</small> </h5>
-        <h5 class="text-center fs-6"><small class="text-warning me-3">Paid:</small> <small class="text-white"><?php echo $invoice_history['status'] ?>     (0=fail,1=success)</small></h5>
-        <h5 class="text-center fs-6"><small class="text-warning me-3">Transition Number:</small> <small class="text-white"><?php echo $invoice_history['transition_no'] ?></small></h5>
+      <div class="card mb-3 h-25 mt-1 ms-5 bg-warning" style="width: 210px;height: 210px;"  >
+        <div class="card mt-2 " style="background-color: rgb(22, 111, 201,0.8)">
+        <p class="text-center fs-sm"><span class="text-warning me-2">Trips:  </small> <small class="text-white"> <?php echo $from['city_name']  ?> To <?php echo $to['city_name']  ?></small></p>
+        <p class="text-center "><small class="text-warning me-2">References: </small>  <small class="text-white"><?php echo $invoice_history['paymentRef'] ?></small></p>
+        <p class="text-center "><small class="text-warning me-2">Total Seats: </small> <small class="text-white"> <?php echo $invoice_history['qty'] ?>  seats</small> </p>
+        <p class="text-center "><small class="text-warning me-2">Total Prices: </small><small class="text-white"> <?php echo $invoice_history['total_price'] ?> ks</small> </p>
+        <p class="text-center text-warning me-2">Payment: <small class="text-white">
+                      <?php if ($invoice_history['status'] == 1) {
+                              echo "<a class='btn btn-success btn-sm'>Success</a>";
+                          } else {
+                              echo "<a class='btn btn-warning btn-sm'>Fail</a>";
+                          }  ?> 
+                          
+                        </small></p>
+        <p class="text-center mt-2"><small class="text-warning me-3">Transition No:</small> <small class="text-white"><?php echo $invoice_history['transition_no'] ?></small></p>
         </div>
       </div>
     <?php

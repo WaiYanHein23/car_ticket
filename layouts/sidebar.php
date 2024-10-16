@@ -47,7 +47,7 @@ if (isset($_POST['logout'])) {
           </g>
         </svg>
       </span>
-      <span class="app-brand-text demo menu-text fw-bolder ms-2">Bus Ticket</span>
+      <span class="app-brand-text demo menu-text fw-bolder ms-2">Car Ticket</span>
     </a>
 
     <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -112,49 +112,7 @@ if (isset($_POST['logout'])) {
     </li>
     <!-- Location-->
 
-    <!-- Seat -->
-    <!-- <li class="menu-item active">
-      <a href="javascript:void(0);" class="menu-link menu-toggle">
-        <i class="fa-solid fa-chair me-2"></i>
-        <div data-i18n="Layouts">Seat</div>
-      </a>
-      <ul class="menu-sub">
-        <li class="menu-item">
-          <a href="../admin/add_seat.php" class="menu-link">
-            <div data-i18n="Without menu"> Registration</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="../admin/seat.php" class="menu-link">
-            <div data-i18n="Without navbar">Seat List</div>
-          </a>
-        </li>
-
-      </ul>
-    </li> -->
-    <!-- Seat -->
-
-    <!-- Payment Method -->
-    <!-- <li class="menu-item active">
-      <a href="javascript:void(0);" class="menu-link menu-toggle">
-        <i class="fa-solid fa-cart-shopping me-2"></i>
-        <div data-i18n="Layouts">Payment</div>
-      </a>
-      <ul class="menu-sub">
-        <li class="menu-item">
-          <a href="../admin/add_payment.php" class="menu-link">
-            <div data-i18n="Without menu"> Registration</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="../admin/payment.php" class="menu-link">
-            <div data-i18n="Without navbar">Payment List</div>
-          </a>
-        </li>
-
-      </ul>
-    </li> -->
-    <!-- Payment Method -->
+    
 
     <!-- Schedule-->
     <li class="menu-item active">
@@ -178,27 +136,15 @@ if (isset($_POST['logout'])) {
     </li>
     <!-- Schedule-->
 
-    <!-- Invoice-->
-    <li class="menu-item active">
-      <a href="javascript:void(0);" class="menu-link menu-toggle">
+    <!-- Booking List-->
+    <!-- <li class="menu-item active my-5 ">
+      <a href="" class="menu-link">
       <i class="fa-solid fa-book me-2"></i>
-        <div data-i18n="Layouts">Invoice List</div>
+        <div data-i18n="Layouts">Booking List</div>
       </a>
-      <ul class="menu-sub">
-        <li class="menu-item">
-          <a href="../admin/update_invoice.php" class="menu-link">
-            <div data-i18n="Without menu">Update Invoice</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="../admin/invoice.php" class="menu-link">
-            <div data-i18n="Without navbar">Invoice List</div>
-          </a>
-        </li>
-
-      </ul>
-    </li>
-    <!-- Invoice-->
+      
+    </li> -->
+    <!-- Booking List-->
 
   </ul>
   </ul>

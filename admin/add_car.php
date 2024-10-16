@@ -133,7 +133,7 @@ if ($success) { ?>
                 <div class="row d-flex justify-content-center">
                     <div class="col-6 card mt-4">
                         <div class="card-header">
-                            <?php if (!isset($_GET['id'])) { ?>
+                            <?php if (!isset($_GET['update_id'])) { ?>
                                 <div class="card-title text-center fs-2">Car Add</div>
                             <?php } else { ?>
                                 <div class="card-title text-center fs-2">Car Update</div>
@@ -148,8 +148,8 @@ if ($success) { ?>
                             </div> -->
 
                             <div class="form-floating form-floating-custom mb-3">
-                                <input type="text" class="form-control" id="floatingInput" placeholder="Brand Name" name="brand" value="<?php echo $brand ?>" />
-                                <label for="floatingInput">Brand</label>
+                                <input type="text" class="form-control" id="floatingInput" placeholder=" Name" name="brand" value="<?php echo $brand ?>" />
+                                <label for="floatingInput">Name</label>
                                 <small class="text-danger"><?php echo $brand_err ?></small>
                             </div>
                             

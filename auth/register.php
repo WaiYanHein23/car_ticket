@@ -41,9 +41,46 @@ if($password==''){
   $password_err="Password can't be blank";
 }
 
+
+    // Check password length
+    if (strlen($password) < 8) {
+      $validate=false;
+        $emailExists = "Password must be at least 8 characters long.";
+    }
+
+    if (!preg_match('/[a-z]/', $password)) {
+      $validate=false;
+      $emailExists= "Password must contain at least one lowercase letter.";
+  }
+
+  //Check for at least one uppercase letter
+  if (!preg_match('/[A-Z]/', $password)) {
+    $validate=false;
+    $emailExists = "Password must contain at least one uppercase letter.";
+  }
+
+  //Check for at least one number
+  if (!preg_match('/\d/', $password)) {
+    $validate=false;
+    $emailExists = "Password must contain at least one number.";
+  }
+
+   // Check for at least one special character
+   if (!preg_match('/[\W_]/', $password)) {
+    $validate=false;
+    $emailExists= "Password must contain at least one special character.";
+}
+
+
 if($ph_no==''){
   $validate=false;
   $ph_no_err="Phone No can't be blank";
+}
+
+ // Check Phone Number length
+ if (strlen($ph_no) != 11) {
+  $validate=false;
+    $emailExists = "Phone Number must be 11 characters long.";
 }
 
 if($address==''){
@@ -204,7 +241,7 @@ if($validate){
                       </g>
                     </svg>
                   </span>
-                  <span class="app-brand-text demo  fw-bolder">Online Bus Ticket</span>
+                  <span class="app-brand-text demo  fw-bolder">Online Car Ticket</span>
                 </a>
               </div>
               <div class="card bg-gray text-center text-danger"><?php echo $emailExists  ?></div>
@@ -230,7 +267,7 @@ if($validate){
                 </div>
                 <div class="mb-3">
                   <label for="email" class="form-label text-white">Email</label>
-                  <input type="text" class="form-control" id="email" name="email" placeholder="Enter your email" />
+                  <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" />
                   <small class="text-danger"><?php echo $email_err  ?></small>
                 </div>
                 <div class="mb-3 form-password-toggle">
@@ -261,7 +298,7 @@ if($validate){
                   <small class="text-danger"><?php echo $address_err   ?></small>
                 </div>
 
-                <div class="mb-3">
+                <!-- <div class="mb-3">
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" id="terms-conditions" name="terms" />
                     <label class="form-check-label" for="terms-conditions">
@@ -269,7 +306,7 @@ if($validate){
                       <a href="javascript:void(0);">privacy policy & terms</a>
                     </label>
                   </div>
-                </div>
+                </div> -->
                 <button type="submit" name="submit" class="btn btn-primary d-grid w-100">Sign up</button>
               </form>
 

@@ -32,7 +32,7 @@ require_once("../layouts/sidebar.php");
 
 ?>
 
-<div class="layout-wrapper layout-content-navbar">
+<div class="layout-wrapper layout-content-navbar ">
       <div class="layout-container">
 
       
@@ -43,10 +43,6 @@ require_once("../layouts/sidebar.php");
         <div class="card-header">
             <div class="d-flex align-items-center">
                 <h4 class="card-title">Booking List</h4>
-                <!-- <button class="btn btn-primary btn-round ms-auto">
-                    <i class="fa fa-plus"></i>
-                    
-                </button> -->
             </div>
         </div>
         <div class="card-body">
@@ -84,7 +80,7 @@ require_once("../layouts/sidebar.php");
                             echo "<td>$invoice[qty]</td>";
                             echo "<td>$invoice[status]</td>";
                             echo "<td>$invoice[paymentRef]</td>";
-                            echo "<td>$invoice[total_price]</td>";
+                            echo "<td>$invoice[total_price] </td>";
                             echo "<td>$invoice[transition_no]</td>";
                             echo "<td><a href='./update_invoice.php?update_id=$invoice[invoice_id]'><i class='fa fa-edit me-4'></i></a>";
                             echo "<a href='?delete_id=$invoice[invoice_id]'><i class='fa fa-times text-danger'></i></a></td></a>";

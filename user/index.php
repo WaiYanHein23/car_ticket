@@ -81,6 +81,20 @@ $invalid = false;
     width: px;
     background-repeat: no-repeat;
   }
+
+
+  #one,
+  #two,
+  #three {
+
+    background-image: url("../assets/img/backgrounds/Bus-Electric-City.jpg");
+    background-size: cover;
+    background-position: center;
+    height: 500px;
+    width: px;
+    background-repeat: no-repeat;
+
+  }
 </style>
 
 
@@ -136,7 +150,7 @@ $invalid = false;
 
         <div class="container text-white">
           <form id="manage_book" method="POST">
-            <div class="row d-flex w-75 p-4 mx-auto rounded" style="background-color: rgba(0, 0, 0, 0.4);">
+            <div class="row d-flex w-75 h-25 p-2 mx-auto rounded" style="background-color: rgba(0, 0, 0, 0.4);">
               <div class="col-6">
                 <p><b>Bus:</b> <?php echo $car['brand'] . ' | ' . $car['plate_number'] ?></p>
                 <p><b>From:</b> <?php echo $from_location['location'] ?></p>
@@ -149,17 +163,38 @@ $invalid = false;
                   <input type="hidden" class="form-control" id="sid" name="sid" value='<?php echo isset($_GET['id']) ? $_GET['id'] : '' ?>' required="">
                   <input type="hidden" class="form-control" id="bid" name="bid" value='<?php echo isset($_GET['bid']) ? $_GET['bid'] : '' ?>' required="">
 
-                  <div class="form-group mb-2 w-50">
+                  <div class="form-group mb-1 w-50">
 
                     <input type="hidden" disabled class="form-control p-1" id="name" name="name" value="<?php echo $user_id ?>">
                   </div>
 
-                  <div class="form-group mb-2 w-50">
+                  <div class="form-group mb-1 w-50">
                     <label for="qty" class="control-label">Quantity</label>
                     <input type="number" maxlength="4" class="form-control p-1 text-right" id="qty" name="qty" value="<?php echo isset($bmeta['qty']) ? $bmeta['qty'] : '' ?>">
                   </div>
 
-                  <div class="form-group mb-2 w-50">
+                  <!-- payment type -->
+                  <!-- <div class="form-group mb-2 w-50">
+                    <label for="payment_type" class="control-label">Payment Type</label>
+                    <input type="text" class="form-control p-1 text-right" id="payment_type" name="payment_type" value="<?php echo isset($bmeta['payment_type']) ? $bmeta['payment_type'] : '' ?>" placeholder="eg.wave pay(or)kpay">
+                  </div> -->
+
+                  <!-- payment type -->
+                  <label for="payment_type" class="control-label">Payment Type</label>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" class="payment_type" name="payment_type" value="KBZ Pay">
+                    <label class="form-check-label" for="flexRadioDefault1">
+                      KBZ Pay
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" class="payment_type" name="payment_type" value="Wave Pay">
+                    <label class="form-check-label" for="flexRadioDefault2">
+                     Wave Pay
+                    </label>
+                  </div>
+
+                  <div class="form-group mb-1 w-50">
                     <label for="transition_no" class="control-label">Transition Number</label>
                     <input type="number" maxlength="4" class="form-control p-1 text-right" id="transition_no" name="transition_no" value="<?php echo isset($bmeta['transition_no']) ? $bmeta['transition_no'] : '' ?>">
                   </div>
@@ -179,11 +214,94 @@ $invalid = false;
 
                 <?php endif; ?>
               </div>
-              <div class="card col-6 ms-5  w-25 h-25 mt-5  " style="background-color: rgba(0, 0, 0, 0.2);">
-                <p class="text-primary text-center mt-3">KBZPay</p>
-                <img src="../assets/img/backgrounds/payment_no.jpg" alt="" srcset="">
-                <p class="mt-2 text-center">Scan QR Code</p>
+              <div class="card col-6 " style="background-color: rgba(0, 0, 0, 0.4);">
+                <div class="row d-flex justify-content-between">
+
+                  <div>
+                    <p class="text-danger text-center mt-3">You Can Pay Here</p>
+
+                  </div>
+                  <!-- modal -->
+                  <!-- Button trigger modal -->
+                  <div class="row">
+                    <!-- kpay button -->
+                    <div class="col-6">
+                      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        KBZ PAY
+                      </button>
+                    </div>
+                    <!-- kpay button -->
+
+                    <!-- wave button -->
+                    <div class="col-6">
+                      <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#waveModal">
+                        WAVEPAY
+                      </button>
+                      <!-- wave button -->
+
+
+                    </div>
+                  </div>
+
+                  <!-- KBZ PAY -->
+                  <!-- Modal -->
+                  <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog w-25 h-25">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h1 class="modal-title fs-5 text-center" id="exampleModalLabel">Scan to pay me</h1>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+
+
+                          <div class="card ">
+                            <p class="text-primary text-center mt-3">KBZ Pay</p>
+                            <img src="../assets/img/backgrounds/kpay.jpg" alt="" srcset="">
+                            <p class="mt-2 text-center text-danger">Scan QR Code</p>
+
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- modal -->
+                  <!-- KBZ  PAY -->
+
+
+                  <!-- WAVE PAY -->
+                  <!-- Modal -->
+                  <div class="modal fade" id="waveModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog w-25 h-25">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h1 class="modal-title fs-5 " id="exampleModalLabel">Scan to pay me</h1>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+
+
+                          <div class="card" id="wave">
+                            <p class="text-primary text-center mt-3">WAVE Pay</p>
+                            <img src="../assets/img/backgrounds/kpay.jpg" alt="" srcset="">
+                            <p class="mt-2 text-center text-danger">Scan QR Code</p>
+
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- modal -->
+                  <!-- WAVE  PAY -->
+
+
+                </div>
+
               </div>
+
+
             </div>
           </form>
         </div>
@@ -251,6 +369,7 @@ $invalid = false;
 </div>
 </div>
 
+<!-- Car List -->
 <div class="row" style="background-color: rgb(37, 184,200,0.5)">
   <h3 class="container bg-warning w-25 p-1 rounded-circle text-center text-primary fst-italic mt-4">Operators</h3>
   <div class="row p-5" id="header">
@@ -258,15 +377,14 @@ $invalid = false;
     $paga = 0;
     if (isset($_GET['pag'])) {
       $paga = $_GET['pag'];
-       
     }
-    $results = get_all_car($mysqli, $paga);
+    $results = get_all_car_start($mysqli, $paga);
     $i = 1;
     while ($car = $results->fetch_assoc()) {
     ?>
       <div class="col-2 my-2">
         <div class="card w-75">
-          <h6 class="text-center bg-success m-0 p-1"><?php echo $car['brand'] ?></h6>
+          <h6 class="text-center bg-gray text-white m-0 p-1"><?php echo $car['brand'] ?></h6>
 
           <a href="">
             <img style='width: 100%; height: 180px;' src='data:image/jpeg;base64,<?php echo $car['image'] ?>' />
@@ -279,41 +397,59 @@ $invalid = false;
       $i++;
     } ?>
 
+
     <div class="row mt-3">
-      
+
       <div class="col-10">
-      <h3 class="text-danger text-center w-25"><i class="fa-solid fa-bus"></i></h3>
-      </div>
-      
-      <div class="col-2">
-      <nav>
-      <ul class="pagination mt-3">
-            
-        <?php
-        $count = get_all_car_pag($mysqli);
-        $p = 0;
-        for ($i = 1; $i < $count + 1; $i += 4) {
-        ?>
-        
-          <li class="page-item"><a class="page-link" href="?pag=<?= $p ?>"><?= $p + 1 ?></a></li>
-        <?php
-          $p++;
-        }
-        ?>
-               
-        </ul>
-      
-    </nav>
+        <nav>
+          <ul class="pagination mt-3">
+
+            <?php
+            $count = get_all_car_pag($mysqli);
+            $p = 0;
+            for ($i = 1; $i < $count + 1; $i++) {
+            ?>
+
+              <li class="page-item"><a class="page-link" href="?pag=<?= $p ?>"><?= $p + 1 ?></a></li>
+            <?php
+              $p++;
+            }
+            ?>
+
+          </ul>
+
+        </nav>
 
       </div>
-     
-      
+
+      <div class="col-1">
+        <h3 class="text-danger text-center w-25"><i class="fa-solid fa-bus"></i></h3>
+      </div>
+
+
+
     </div>
 
   </div>
 
 
 </div>
+<!-- Car List -->
+
+<!-- <div class="row d-flex justify-content-around" style="background-color: rgb(37, 184,200,0.5);height:400px;">
+<h3 class="text-center text-primary">Popular Routes</h3>
+  <div id="one" class="col-4  ms-5" style="width: 300px;height:200px">
+<a href="" class="text-center mt-5 p-5"><p style="height:200px;">Yangon to Pyay</p></a>
+</div>
+
+  <div id="two" class="col-4  ms-5" style="width: 300px;height:200px" >
+        <a href="" class="p-5 mt-5 text-center"><p>Yangon to Mandalay</p></a>
+</div>
+  <div id="three" class="col-4 ms-5" style="width: 300px;height:200px">
+
+<a href="" class="p-5 text-center"><p>Yangon to Naypyitaw</p></a>
+</div>
+</div> -->
 
 
 <div class="row " id="card" style="background-color: rgb(37, 184,200,0.5)">
@@ -324,8 +460,13 @@ $invalid = false;
         <h5 class="card-title text-primary">
           20+ Bus Operators
         </h5>
-        <p class="card-text text-white">Choose from 20+ major bus operators covering 100 destinations.</p>
 
+        <p class="card-text text-white">Choose from 20+ major bus operators covering 50 destinations.</p>
+        <div class="card mx-3">
+          <a href="./aboutus.php">
+            <p class="text-danger text-center mt-1 mb-2 p-0">Learn More -></p>
+          </a>
+        </div>
       </div>
     </div>
   </div>
@@ -336,7 +477,13 @@ $invalid = false;
         <h5 class="card-title text-primary">
           Instant Booking
         </h5>
-        <p class="card-text text-white">Book your trip in less than 5 min. Instant confirmation after payment.</p>
+        <p class="card-text text-white">Book your trip in less than 5 mins. Instant confirmation after payment.</p>
+
+        <div class="card mx-3">
+          <a href="./aboutus.php">
+            <p class="text-danger text-center mt-1 mb-2 p-0">Learn More -></p>
+          </a>
+        </div>
 
       </div>
     </div>
@@ -346,9 +493,16 @@ $invalid = false;
       <div class="card-body">
         <h3 class="text-center text-primary"><i class="fa-solid fa-person-circle-question"></i></h3>
         <h5 class="text-primary text-center card-title">
-          Help 24/7
+          Help
         </h5>
-        <p class="card-text text-white">Our support center is available 24/7 for your questions and concerns.</p>
+        <p class="card-text text-white">Our support center is available for your questions and concerns.</p>
+
+        <div class="card mx-3 p-0">
+          <a href="./aboutus.php">
+            <p class="text-danger text-center mt-1 mb-2 p-0">Learn More -></p>
+          </a>
+        </div>
+
 
       </div>
     </div>
@@ -356,6 +510,20 @@ $invalid = false;
 
 </div>
 
+<div class="row" style="background-color: rgb(37, 184,200,0.5)">
+  <h3 class=" card text-center text-primary " style="background-color: rgb(37, 184,200,0.2)">We Accept</h4>
+    <div class="row d-flex justify-content-around">
+      <div class="  col-3 ms-5 mb-3  " style="width: 130px;">
+        <p class="text-center text-danger mt-1">KBZ PAY</p>
+        <img class="ms-3 mb-2 ms-0" src="../assets/img/payment/kpay.webp" alt="" srcset="" style="width: 80px; height:100px;">
+      </div>
+
+      <div class="col-3 ms-5  mb-3" style="width: 130px;">
+        <p class="text-center mt-1 text-danger ">WAVE PAY</p>
+        <img class="ms-3 mb-1" src="../assets/img/payment/wave.webp" alt="" srcset="" style="width: 80px; height: 100px;">
+      </div>
+    </div>
+</div>
 
 <footer id="footer" class=" row footer-section bg-dark">
 
@@ -367,7 +535,6 @@ $invalid = false;
         <p class="mb-2 "><a href="#" class="text-decoration-none" style="color: white;">Terms</a></p>
         <p class="mb-2 "><a href="#" class="text-decoration-none" style="color: white;">Privacy</a></p>
         <p class="mb-2 "><a href="#" class="text-decoration-none" style="color: white;">Policy</a></p>
-        <p class="mb-2 "><a href="#footer" class="text-decoration-none" style="color: white;">Contact</a></p>
       </ul>
     </div>
 
@@ -387,18 +554,19 @@ $invalid = false;
           <a href="https://www.facebook.com/"><i class="fab fa-facebook-f facebook-bg p-2 me-3"></i></a>
           <a href="https://www.twitter.com/"><i class="fab fa-twitter twitter-bg p-2 me-3"></i></a>
           <a href="https://www.youtube.com/"><i class="fa-brands fa-youtube p-2 me-3"></i></a>
+
         </div>
 
-        <div class="subscribe-form d-flex justify-content-center me-5">
-          <form style="width: 20%; margin: 20px;" action="#">
-            <div class="d-flex">
-              <!-- <label class="me-2 text-white" for="email">email</label> -->
-              <input name="email" type="text" placeholder="email address">
-            </div>
-          </form>
+        <div class="text-white mt-3 text-center ">
+          <small><i class="fa-solid fa-phone me-2"></i> 09445088092</small>
+
+
+
         </div>
 
       </div>
+
+
     </div>
 
 
@@ -436,12 +604,13 @@ $invalid = false;
       var get = '';
       var name = $('#name').val();
       var qty = $('#qty').val();
+      var payment_type = $("input[name='payment_type']:checked").val();
       var transition_no = $('#transition_no').val();
       qty = parseInt(qty, 10);
       var price = <?php echo $price ?>;
       var total_price = qty * price;
 
-      window.location.href = `index.php?page=book_now&sid=<?php echo $_GET['id']; ?>&bid=<?= isset($_GET['bid']) ? $_GET['bid'] : '' ?>&name=${name}&qty=${qty}&transition_no=${transition_no}&total_price=${total_price}`;
+      window.location.href = `index.php?page=book_now&sid=<?php echo $_GET['id']; ?>&bid=<?= isset($_GET['bid']) ? $_GET['bid'] : '' ?>&name=${name}&qty=${qty}&payment_type=${payment_type}&transition_no=${transition_no}&total_price=${total_price}`;
     });
   </script>
 
